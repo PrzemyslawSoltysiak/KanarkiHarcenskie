@@ -1,0 +1,40 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Konkursy.CreateModel
+
+@{
+    ViewData["Title"] = "Dodaj Konkurs";
+}
+
+<h3>Dodaj Konkurs</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Konkurs.Data" class="form-label"></label>
+                <input asp-for="Konkurs.Data" class="form-control" />
+                <span asp-validation-for="Konkurs.Data" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Konkurs.Miejscowosc" class="form-label"></label>
+                <input asp-for="Konkurs.Miejscowosc" class="form-control" />
+                <span asp-validation-for="Konkurs.Miejscowosc" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Konkurs.Ranga" class="form-label"></label>
+                <select asp-for="Konkurs.Ranga" class="form-control"
+                    asp-items="Html.GetEnumSelectList(Model._RangaKonkursu.GetType())">
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+                <a asp-page="Index" class="ms-2">Powrót do listy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

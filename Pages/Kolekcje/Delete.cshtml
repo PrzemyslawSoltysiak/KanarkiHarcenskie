@@ -1,0 +1,65 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Kolekcje.DeleteModel
+
+@{
+    ViewData["Title"] = "Usuń Kolekcję";
+}
+
+<h3 class="mt-4">Czy na pewno chcesz usunąć tą Kolekcję?</h3>
+<h5 class="mb-4">Usunięcie Kolekcji spowoduje również usunięcie zaplanowanych dla niej Przesłuchań.</h5>
+@* TO-DO: Usuwanie jedynie Przesłuchań, które już się odbyły, w przeciwnym wypadku pozostawianie kolumny klucza obcego pustej *@
+
+<div>
+    <h4>Kolekcja</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Kolekcja.Wlasciciel)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Kolekcja.Wlasciciel.Podsumowanie)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Kolekcja.Konkurs)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Kolekcja.Konkurs.Podsumowanie)
+        </dd>
+        <dt class="col-sm-4">
+            Numer obrączki rodowej ptaka w Klatce nr 1
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Kolekcja.Klatki[0].NrObraczkiRodowej)
+        </dd>
+        <dt class="col-sm-4">
+            Numer obrączki rodowej ptaka w Klatce nr 2
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Kolekcja.Klatki[1].NrObraczkiRodowej)
+        </dd>
+        <dt class="col-sm-4">
+            Numer obrączki rodowej ptaka w Klatce nr 3
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Kolekcja.Klatki[2].NrObraczkiRodowej)
+        </dd>
+        <dt class="col-sm-4">
+            Numer obrączki rodowej ptaka w Klatce nr 4
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Kolekcja.Klatki[3].NrObraczkiRodowej)
+        </dd>
+        <dt class="col-sm-4">
+            Liczba Przesłuchań zaplanowanych dla Kolekcji
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.ZaplanowanePrzesluchania)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Kolekcja.ID" />
+        <input type="submit" value="Usuń" class="btn btn-danger me-1" /> |
+        <a asp-page="Index" class="ms-1">Powrót do listy</a>
+    </form>
+</div>

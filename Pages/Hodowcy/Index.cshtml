@@ -1,0 +1,48 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Hodowcy.IndexModel
+
+@{
+    ViewData["Title"] = "Hodowcy";
+}
+
+<h2>Hodowcy</h2>
+
+<p>
+    <a asp-page="Create">Dodaj Hodowcę</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th style="width: 32ch;">
+                @Html.DisplayNameFor(model => model.Hodowcy[0].SygnumHodowcy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hodowcy[0].Imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hodowcy[0].Nazwisko)
+            </th>
+            <th style="width: 16ch;"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Hodowcy) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SygnumHodowcy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwisko)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.SygnumHodowcy">Edytuj</a> |
+                @* <a asp-page="./Details" asp-route-id="@item.SygnumHodowcy">Details</a> | *@
+                <a asp-page="./Delete" asp-route-id="@item.SygnumHodowcy">Usuń</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

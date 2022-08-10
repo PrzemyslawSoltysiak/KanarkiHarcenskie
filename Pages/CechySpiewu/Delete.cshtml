@@ -1,0 +1,40 @@
+﻿@page
+@model KanarkiHercenskie.Pages.CechySpiewu.DeleteModel
+
+@{
+    ViewData["Title"] = "Usuń Cechę Śpiewu";
+}
+
+<h3 class="mt-4">Czy na pewno chcesz usunąć tę Cechę Śpiewu COM?</h3>
+<h5 class="mb-4">Usunięcie Cechy Śpiewu spowoduje również usunięcie powiązanych z nią Wyników.</h5>
+
+<div>
+    <h4>Cecha Śpiewu COM</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CechaSpiewuCOM.Nazwa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CechaSpiewuCOM.Nazwa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CechaSpiewuCOM.MaksPunktow)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CechaSpiewuCOM.MaksPunktow)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CechaSpiewuCOM.WagaPunktow)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CechaSpiewuCOM.WagaPunktow)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="CechaSpiewuCOM.Nazwa" />
+        <input type="submit" value="Usuń" class="btn btn-danger me-1" /> |
+        <a asp-page="Index" class="ms-1">Powrót do listy</a>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Hodowcy.CreateModel
+
+@{
+    ViewData["Title"] = "Dodaj Hodowcę";
+}
+
+<h3>Dodaj Hodowcę</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3" hidden>
+                @* TO-DO: Generowanie CIH na bieżąco w trakcie wypełniania pola Nazwisko (prawdopodobnie przez JavaScript?) *@
+                <label asp-for="Hodowca.SygnumHodowcy" class="form-label"></label>
+                <input asp-for="Hodowca.SygnumHodowcy" class="form-control" value="____" readonly />
+                <span asp-validation-for="Hodowca.SygnumHodowcy" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Hodowca.Imie" class="form-label"></label>
+                <input asp-for="Hodowca.Imie" class="form-control" />
+                <span asp-validation-for="Hodowca.Imie" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Hodowca.Nazwisko" class="form-label"></label>
+                <input asp-for="Hodowca.Nazwisko" class="form-control" />
+                <span asp-validation-for="Hodowca.Nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+                <a asp-page="Index" class="ms-2">Powrót do listy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,47 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Wyniki.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Wynik[0].PrzyznanoDla)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Wynik[0].PrzyznanoZa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Wynik[0].PrzyznanePunkty)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Wynik) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrzyznanoDla.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrzyznanoZa.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrzyznanePunkty)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

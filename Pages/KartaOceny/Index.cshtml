@@ -1,0 +1,392 @@
+﻿@page
+@model KanarkiHercenskie.Pages.KartaOceny.IndexModel
+@{
+	ViewData["Title"] = "Karta Oceny PFO";
+}
+
+<div class="alert alert-info alert-dismissible fade show py-4 px-5" role="alert">
+	<h5 class="mb-3">Informacje</h5>
+	<h6>Parametry URL</h6>
+	<p>
+		Strona Karty Oceny PFO pozwala na wskazanie Konkursu oraz Hodowcy zarejestrowanych w Bazie Danych,
+		poprzez podanie ich identyfikatorów jako parametrów w adresie URL: idKonkursu oraz sygnumHodowcy
+		(przykład końcówki adresu URL: <strong>?idKonkursu=1&sygnumHodowcy=P172</strong>).
+		Automatycznie uzupełnione zostaną wtedy pola: Ranga konkursu, Miejscowość, Data, Hodowca (imię i nazwisko), Sygnum hodowcy;
+		a także, jeśli Hodowca zarejestrował już Kolekcję na dany Konkurs, Numery obrączek rodowych ptaków w odpowiednich Klatkach.
+		Ponadto, jeśli dla danej Kolekcji został już ustalony termin Przesłuchania, również pojawi się on na Karcie Oceny
+		(pola Data przesłuchania, Godzina (od), (godzina) Do).
+	</p>
+	<h6>Rejestracja poprzez Kartę Oceny</h6>
+	<p>
+		Formularz pozwala również na zarejestrowanie nowego Konkursu, Hodowcy (wystarczy podać jego imię i nazwisko, 
+		Sygnum Hodowcy zostanie wygenerowane automatycznie), Kolekcji oraz Przesłuchania w momencie wysłania formularza - odpowiednie wiersze
+		w tabelach Bazy Danych zostaną utworzone automatycznie.
+	</p>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+	<h5 class="mb-3">Ograniczenia</h5>
+	<h6>Wprowadzenie Wyników do Bazy Danych nie powiedzie się, gdy:</h6>
+	<ul>
+		<li>
+			uzupełnione zostanie pole <var>Sygnum hodowcy</var>, jednak zawartość pola <var>Hodowca (imię i nazwisko)</var>
+			nie będzie pokrywała się z <var>Imieniem</var> i <var>Nazwiskiem</var> Hodowcy zarejestrowanego w Bazie Danych
+			pod danym <var>Sygnum</var>;
+		</li>
+		<li>
+			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs, i <var>Numery obrączek rodowych</var>
+			nie pokrywają się z tymi zapisanymi dla tej Kolekcji w Bazie Danych;
+		</li>
+		<li>
+			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs i zostało jej przypisane Przesłuchanie,
+			a podane <var>Data</var> lub <var>Godzina (od)</var> nie pokrywają się z tymi zapisanymi w Bazie Danych
+			(<var>(godzina) Do</var> może zostać zmieniona poprzez Kartę Oceny);
+		</li>
+		<li>
+			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs, i została już ona oceniona (posiada choć jeden Wynik).
+		</li>
+	</ul>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="container border p-5">
+
+	@* NAGŁÓWEK *@
+	<div class="container text-center mb-5">
+		<h2>Karta oceny PFO</h2>
+		<h3>Kanarek herceński</h3>
+	</div>
+
+	<form method="post">
+		@* DANE KONKURSU *@
+		<div class="row mb-3">
+			@* Ranga *@
+			<label asp-for="Konkurs.Ranga" class="col-auto col-form-label">
+				Ranga konkursu:
+			</label>
+			<div class="col">
+				<select asp-for="Konkurs.Ranga" asp-items="Html.GetEnumSelectList(Model.Konkurs.Ranga.GetType())"
+					    class="form-control"></select>
+			</div>
+		</div>
+		<div class="row mb-3">
+			@* Miejscowość *@
+			<label asp-for="Konkurs.Miejscowosc" class="col-auto col-form-label">
+				Miejsowość:
+			</label>
+			<div class="col">
+				<input asp-for="Konkurs.Miejscowosc" class="form-control" />
+			</div>
+			@* Data *@
+			<label asp-for="Konkurs.Data" class="col-auto col-form-label">
+				Data:
+			</label>
+			<div class="col-auto">
+				<input asp-for="Konkurs.Data" class="form-control" />
+			</div>
+		</div>
+
+		@* DANE HODOWCY *@
+		<div class="row mb-3">
+			@* Imię i Nazwisko *@
+			<label asp-for="ImieNazwiskoHodowcy" class="col-auto col-form-label">
+				Hodowca (imię i nazwisko):
+			</label>
+			<div class="col">
+				<input asp-for="ImieNazwiskoHodowcy" class="form-control" />
+			</div>
+		</div>
+
+		@* TABELA *@
+		<table class="table table-bordered text-center">
+			@* PIERWSZY WIERSZ *@
+			<tr class="align-middle">
+				@* Numery obrączek rodowych *@
+				<th class="text-start ps-4">
+					<label>Nr obrączki rodowej</label>
+				</th>
+				@* Klatka nr 1 *@
+				<td>
+					<input asp-for="NumeryObraczekRodowych[0]" type="text" style="width: 6ch;" 
+						   class="form-control mx-auto my-2 text-center" />
+				</td>
+				@* Klatka nr 2 *@
+				<td>
+					<input asp-for="NumeryObraczekRodowych[1]" type="text" style="width: 6ch;" 
+						   class="form-control mx-auto my-2 text-center" />
+				</td>
+				@* Klatka nr 3 *@
+				<td>
+					<input asp-for="NumeryObraczekRodowych[2]" type="text" style="width: 6ch;" 
+						   class="form-control mx-auto my-2 text-center" />
+				</td>
+				@* Klatka nr 4 *@
+				<td>
+					<input asp-for="NumeryObraczekRodowych[3]" type="text" style="width: 6ch;" 
+						   class="form-control mx-auto my-2 text-center" />
+				</td>
+
+				@* Sygnum Hodowcy *@
+				<th style="width: 40%;" class="text-start ps-2">
+					<div class="container row mx-auto">
+						<label asp-for="Hodowca.SygnumHodowcy" class="col col-form-label">
+							Sygnum hodowcy:
+						</label>
+						<input asp-for="Hodowca.SygnumHodowcy" class="col form-control me-4" />
+					</div>
+				</th>
+			</tr>
+
+			@* DRUGI WIERSZ *@
+			<tr class="align-middle">
+				@* Numery klatek konkursowych *@
+				<th class="text-start ps-4">
+					<label>Nr klatki konkursowej</label>
+				</th>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+				@* INFORMACJE O PRZESŁUCHANIU *@
+				<td rowspan="2">
+					<div class="container row mx-auto py-2">
+						@* Data *@
+						<div class="container row mb-3 text-start">
+							<label asp-for="Przesluchanie.Data" class="col col-form-label">
+								Data przesłuchania: 
+							</label>
+							<input asp-for="Przesluchanie.Data" style="width: auto;" class="col-auto form-control" />
+						</div>
+						<div class="container row">
+							@* Godzina Od *@
+							<label asp-for="Przesluchanie.GodzinaOd" class="col col-form-label text-start">
+								Godzina: 
+							</label>
+							<input asp-for="Przesluchanie.GodzinaOd" style="width: auto;" class="col-auto form-control" />
+							@* Godzina Do *@
+							<label asp-for="Przesluchanie.GodzinaDo" class="col col-form-label">
+								do 
+							</label>
+							<input asp-for="Przesluchanie.GodzinaDo" style="width: auto;" class="col-auto form-control" />
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			@* PUNKTACJA *@
+			@* PUNKTY DODATNIE *@
+			<tr class="text-center align-middle">
+				<th colspan="5">PUNKTY DODATNIE</th>
+			</tr>
+@for (int i = 0; i < Model.CechyDodatnie.Count(); ++i) {
+			<tr class="align-middle">
+				<td>
+					<div class="container row">
+						<div class="col-8 text-start">
+							@Html.DisplayFor(model => model.CechyDodatnie[i].Nazwa)
+						</div>
+						<div class="col-1 text-end"> do </div>
+						<div class="col-2 text-end mx-0 ">
+							@Html.DisplayFor(model => model.CechyDodatnie[i].MaksPunktow)
+						</div>
+						<div class="col-1"> pkt </div>
+					</div>
+				</td>
+				<td>
+					<input asp-for="WynikiDodatnieKlatkiNr1[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input asp-for="WynikiDodatnieKlatkiNr2[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input asp-for="WynikiDodatnieKlatkiNr3[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input asp-for="WynikiDodatnieKlatkiNr4[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+			</tr>
+}
+			@* TO-DO: Sumowanie (prawdopodobnie w JS) *@
+			<tr class="align-middle">
+				<th>
+					<div class="container row">
+						<div class="col-8 text-start">
+							Razem punkty dodatnie
+						</div>
+						<div class="col-1 text-end"> do </div>
+						<div class="col-2 text-end mx-0 ">
+							90
+						</div>
+						<div class="col-1"> pkt </div>
+					</div>
+				</th>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+			</tr>
+
+			@* PUNKTY UJEMNE *@
+			<tr class="text-center align-middle">
+				<th colspan="5" class="py-3">PUNKTY UJEMNE</th>
+			</tr>
+@for (int i = 0; i < Model.CechyUjemne.Count(); ++i) {
+			<tr class="align-middle">
+				<td>
+					<div class="container row">
+						<div class="col-8 text-start">
+							@Html.DisplayFor(model => model.CechyUjemne[i].Nazwa)
+						</div>
+						<div class="col-1 text-end"> do </div>
+						<div class="col-2 text-end mx-0 ">
+							@Html.DisplayFor(model => model.CechyUjemne[i].MaksPunktow)
+						</div>
+						<div class="col-1"> pkt </div>
+					</div>
+				</td>
+				<td>
+					<input asp-for="WynikiUjemneKlatkiNr1[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input asp-for="WynikiUjemneKlatkiNr2[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input asp-for="WynikiUjemneKlatkiNr3[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input asp-for="WynikiUjemneKlatkiNr4[i]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+			</tr>
+}
+			<tr class="align-middle">
+				<th>
+					<div class="container row">
+						<div class="col-8 text-start">
+							Razem punkty ujemne
+						</div>
+					</div>
+				</th>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+				<td>
+					<input type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
+				</td>
+			</tr>
+
+			@* OCENA OGÓLNA *@
+			<tr class="text-center align-middle">
+				<th colspan="6" class="py-3">
+					OCENA OGÓLNA
+				</th>
+			</tr>
+			<tr class="align-middle">
+				<td>
+					<div class="container row">
+						<div class="col-8 text-start">
+							Ocena eksperta I
+						</div>
+					</div>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+
+				@* OCENA KOLEKCJI *@
+				<td rowspan="3" class="container w-auto align-top p-4 text-start">
+					<label class="form-label h6">Ocena kolekcji</label> <br />
+					<div class="container mt-5 pe-5 row">
+						<div class="container col-7 text-end pe-5">
+							<input type="submit" value="Wyślij" class="btn btn-primary" />
+						</div>
+						<input class="form-control col" type="text" />
+						<div class="col-1 mt-2"> pkt </div>
+					</div>
+				</td>
+			</tr>
+			<tr class="align-middle">
+				<td>
+					<div class="container row">
+						<div class="col-8 text-start">
+							Ocena eksperta II
+						</div>
+					</div>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+			</tr>
+			<tr class="align-middle">
+				<th>
+					<div class="container row">
+						<div class="col-8 text-start">
+							Ocena końcowa
+						</div>
+					</div>
+				</th>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+				<td>
+					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+

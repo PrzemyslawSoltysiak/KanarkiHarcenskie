@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanarkiHercenskie", "KanarkiHercenskie.csproj", "{440A3966-F6DB-4C7C-A2E5-24FD691BAA1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanarkiHercenskie", "KanarkiHercenskie.csproj", "{440A3966-F6DB-4C7C-A2E5-24FD691BAA1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

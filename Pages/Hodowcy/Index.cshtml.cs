@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using KanarkiHercenskie.Data;
 using KanarkiHercenskie.Models;
 
-namespace KanarkiHercenskie.Pages
+namespace KanarkiHercenskie.Pages.Hodowcy
 {
     public class IndexModel : PageModel
     {
@@ -19,15 +19,14 @@ namespace KanarkiHercenskie.Pages
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            if (await _context.Konkursy.Where(k => k.ID == 1).AnyAsync() && 
-                await _context.Hodowcy.Where(h => h.SygnumHodowcy == "P172").AnyAsync())
-            {
-                return Redirect("/KartaOceny?idKonkursu=1&sygnumHodowcy=P172");
-            }
+        public IList<Hodowca> Hodowcy { get; set; } = default!;
 
-            return Redirect("/KartaOceny/Index");
+        public async Task OnGetAsync()
+        {
+            if (_context.Hodowcy != null)
+            {
+                Hodowcy = await _context.Hodowcy.AsNoTracking().ToListAsync();
+            }
         }
     }
 }

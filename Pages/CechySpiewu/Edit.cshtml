@@ -1,0 +1,43 @@
+﻿@page
+@model KanarkiHercenskie.Pages.CechySpiewu.EditModel
+
+@{
+    ViewData["Title"] = "Edytuj Cechę Śpiewu";
+}
+
+<h3>Edytuj Cechę Śpiewu COM</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="CechaSpiewuCOM.Nazwa" class="form-label"></label>
+                <input asp-for="CechaSpiewuCOM.Nazwa" class="form-control" readonly />
+            </div>
+            <div class="mb-3">
+                <label asp-for="CechaSpiewuCOM.MaksPunktow" class="form-label"></label>
+                <input asp-for="CechaSpiewuCOM.MaksPunktow" class="form-control" />
+                <span asp-validation-for="CechaSpiewuCOM.MaksPunktow" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="CechaSpiewuCOM.WagaPunktow" class="form-label"></label>
+                <select asp-for="CechaSpiewuCOM.WagaPunktow" class="form-control"
+                    asp-items="Html.GetEnumSelectList(Model._Wagi.GetType())"></select>
+                <span asp-validation-for="CechaSpiewuCOM.WagaPunktow" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-page="Index" class="ms-2">Powrót do listy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

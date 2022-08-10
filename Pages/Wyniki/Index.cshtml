@@ -1,0 +1,68 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Klatki.IndexModel
+
+@{
+    ViewData["Title"] = "Wyniki";
+}
+
+<h2>Wyniki</h2> 
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>
+                Kolekcja
+            </th>
+            <th style="width: 16ch;">
+                Nr Klatki
+            </th>
+            <th>
+                Nr obrączki rodowej
+            </th>
+            <th>
+                Razem pkt dodatnie
+            </th>
+            <th>
+                Razem pkt ujemne
+            </th>
+            <th>
+                Ocena ogólna
+            </th>
+            <th>
+                Ocena Kolekcji
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@for (int i = 0; i < Model.Klatki.Count(); ++i) {
+        <tr class="align-middle text-center">
+    @if (Model.Klatki[i].NrKlatki == 1) {
+            <td rowspan="4" class="container w-25 text-center">
+                @Html.DisplayFor(modelItem => Model.Klatki[i].Kolekcja.Wlasciciel.Podsumowanie) <br />
+                @Html.DisplayFor(modelItem => Model.Klatki[i].Kolekcja.Konkurs.Podsumowanie)
+            </td>
+    }
+            <td>
+                @Html.DisplayFor(modelItem => Model.Klatki[i].NrKlatki)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Klatki[i].NrObraczkiRodowej)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.RazemDodatnie[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.RazemUjemne[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.OcenaOgolna[i])
+            </td>
+    @if (Model.Klatki[i].NrKlatki == 1) {
+            <td rowspan="4" class="text-center">
+                @Html.DisplayFor(modelItem => Model.OcenyKolekcji[i / 4])
+            </td>
+    }
+        </tr>
+}
+    </tbody>
+</table>

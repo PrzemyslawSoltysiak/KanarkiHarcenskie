@@ -1,0 +1,51 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Przesluchania.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3 class="mt-4">Czy na pewno chcesz usunąć to Przesłuchanie?</h3>
+
+<div>
+    <h4>Przesłuchanie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2 mb-1">
+            Właściciel Kolekcji
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przesluchanie.PrzesluchiwanaKolekcja.Wlasciciel.Podsumowanie)
+        </dd>
+        <dt class="col-sm-2 mb-1">
+            Konkurs
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przesluchanie.PrzesluchiwanaKolekcja.Konkurs.Podsumowanie)
+        </dd>
+        <dt class="col-sm-2 mb-1">
+            @Html.DisplayNameFor(model => model.Przesluchanie.Data)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przesluchanie.Data)
+        </dd>
+        <dt class="col-sm-2 mb-1">
+            Godzina rozpoczęcia
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przesluchanie.GodzinaOd)
+        </dd>
+        <dt class="col-sm-2 mb-1">
+            Godzina zakończenia
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przesluchanie.GodzinaDo)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Przesluchanie.ID" />
+        <input type="submit" value="Usuń" class="btn btn-danger me-1" /> |
+        <a asp-page="Index" class="ms-1">Powrót do listy</a>
+    </form>
+</div>

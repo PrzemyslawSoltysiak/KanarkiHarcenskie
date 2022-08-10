@@ -1,0 +1,78 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Kolekcje.IndexModel
+
+@{
+    ViewData["Title"] = "Kolekcje";
+}
+
+<h2>Kolekcje</h2>
+
+<p>
+    <a asp-page="Create">Dodaj Kolekcję</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th colspan="2"></th>
+            <th colspan="4">
+                Numer obrączki rodowej kanarka w klatce numer:
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                Właściciel
+            </th>
+            <th>
+                Konkurs
+            </th>
+            <th style="width: 12ch; min-width: 4ch;">
+                1
+            </th>
+            <th style="width: 12ch; min-width: 4ch;">
+                2
+            </th>
+            <th style="width: 12ch; min-width: 4ch;">
+                3
+            </th>
+            <th style="width: 12ch; min-width: 4ch;">
+                4
+            </th>
+            <th>
+                Ocena Kolekcji
+            </th>
+            <th class="border-top"></th>
+        </tr>
+    </thead>
+    <tbody>
+@for (int i = 0; i < Model.Kolekcje.Count(); ++i) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Kolekcje[i].Wlasciciel.Podsumowanie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Kolekcje[i].Konkurs.Podsumowanie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Kolekcje[i].Klatki[0].NrObraczkiRodowej)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Kolekcje[i].Klatki[1].NrObraczkiRodowej)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Kolekcje[i].Klatki[2].NrObraczkiRodowej)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Kolekcje[i].Klatki[3].NrObraczkiRodowej)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.OcenyKolekcji[i])
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@Model.Kolekcje[i].ID">Edytuj</a> |
+                <a asp-page="./Delete" asp-route-id="@Model.Kolekcje[i].ID">Usuń</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

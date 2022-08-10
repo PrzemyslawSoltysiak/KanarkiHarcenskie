@@ -1,0 +1,52 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Hodowcy.DeleteModel
+
+@{
+    ViewData["Title"] = "Usuń Hodowcę";
+}
+
+<h3 class="mt-4">Czy na pewno chcesz usunąć tego Hodowcę?</h3>
+<h5 class="mb-4">Usunięcie Hodowcy spowoduje również usunięcie powiązanych z nim Kolekcji (oraz ich Przesłuchań).</h5>
+
+<div>
+    <h4>Hodowca</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Hodowca.SygnumHodowcy)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Hodowca.SygnumHodowcy)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Hodowca.Imie)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Hodowca.Imie)
+        </dd>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.Hodowca.Nazwisko)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Hodowca.Nazwisko)
+        </dd>
+        <dt class="col-sm-5">
+            Liczba Kolekcji zarejestrowanych przez Hodowcę
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.ZarejestrowaneKolekcje)
+        </dd>
+        <dt class="col-sm-5">
+            Liczba Przesłuchań zaplanowanych dla Kolekcji Hodowcy
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.ZaplanowanePrzesluchania)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Hodowca.SygnumHodowcy" />
+        <input type="submit" value="Usuń" class="btn btn-danger me-1" /> |
+        <a asp-page="Index" class="ms-1">Powrót do listy</a>
+    </form>
+</div>

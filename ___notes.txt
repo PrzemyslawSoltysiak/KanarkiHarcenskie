@@ -1,0 +1,36 @@
+﻿Konkursy:
+ - możliwość rejestracji Kolekcji na wskazany Konkurs (dane Hodowcy podawane są w kolejnym etapie,
+   lub, jeśli Hodowca jest zalogowany, uzupełniane są automatycznie);
+ - możliwość podglądu Kolekcji zarejestrowanych na Konkurs,
+ - możliwość podglądu Przesłuchań powiązanych z danym Konkursem,
+ - możliwość podglądu rankingu Wyników.
+
+Hodowcy:
+ - możliwość rejestracji Kolekcji wskazanego Hodowcy (Konkurs wybierany w kolejnym etapie),
+ - możliwość podglądu Kolekcji Hodowcy,
+ - możliwość podglądu nadchodzących Przesłuchań Kolekcji należących do Hodowcy.
+
+Kolekcje:
+ - możliwość podglądu Przesłuchania Kolekcji (jeśli jest ono przypisane),
+ - możliwość podglądu rankingu Wyników,
+ - możliwość podglądu Uwag do Klatek wchodzących w skład Kolekcji,
+ - możliwość podglądu punktacji poszczególnych ptaków w Kolekcji.
+
+Cechy Śpiewu COM:
+ - możliwość podglądu rankingu Wyników (np. Nr obrączki rodowej kanarka, 
+   który osiągnął najwięcej punktów w danej kategorii).
+
+Karta Oceny:
+ - większa responsywność (poprawne skalowanie formularza do szerokości ekranu),
+ - możliwość dodawania Uwag do Klatek,
+ - wyświetlanie sum zdobytych punktów (prawdopodobnie wymagane będzie do tego użycie JavaScript).
+
+
+Dodatkowo: 
+ - Dodać możliwość zmieniania zawartości kolumn wchodzących w skład złożonych kluczcy kandydujących,
+   poprzez stworzenie funkcji tworzącej nowy wiersz (o nowym PK), uaktualnienie kluczy obcych
+   oraz usunięcie starego wiersza;
+ - W logiczny sposób zablokować możliwość edycji części danych w zależności od wartości innych, np.:
+   możliwość zmiany Numerów obrączek rodowych ptaków wchodzących w skład Kolekcji jedynie do jej ocenienia,
+   możliwość zmiany obiektu Przesłuchania (Kolekcji) jedynie do czasu jego rozpoczęcia;
+ - Wykorzystywanie wolnych CIH po usuniętych Hodowcach przy wprowadzaniu nowych do Bazy Danych.

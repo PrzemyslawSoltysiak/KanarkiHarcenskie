@@ -1,0 +1,48 @@
+﻿@page
+@model KanarkiHercenskie.Pages.Przesluchania.EditModel
+
+@{
+    ViewData["Title"] = "Edytuj Przesłuchanie";
+}
+
+<h3>Edytuj Przesłuchanie</h3>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Przesluchanie.ID" />
+            <div class="mb-3">
+                <label asp-for="Przesluchanie.ID_Kolekcji" class="form-label">Kolekcja</label>
+                <select asp-for="Przesluchanie.ID_Kolekcji" class ="form-control" asp-items="Model.ListaKolekcji">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Przesluchanie.Data" class="form-label"></label>
+                <input asp-for="Przesluchanie.Data" class="form-control" />
+                <span asp-validation-for="Przesluchanie.Data" class="text-danger"></span>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <label asp-for="Przesluchanie.GodzinaOd" class="form-label">Godzina rozpoczęcia</label>
+                    <input asp-for="Przesluchanie.GodzinaOd" class="form-control" />
+                    <span asp-validation-for="Przesluchanie.GodzinaOd" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Przesluchanie.GodzinaDo" class="form-label">Godzina zakończenia</label>
+                    <input asp-for="Przesluchanie.GodzinaDo" class="form-control" />
+                    <span asp-validation-for="Przesluchanie.GodzinaDo" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-page="Index" class="ms-2">Powrót do listy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
