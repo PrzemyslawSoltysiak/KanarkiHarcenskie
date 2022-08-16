@@ -12,6 +12,11 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 {
     public class WierszWynikow
     {
+        public WierszWynikow(string nazwaCechySpiewu) : this()
+        {
+            NazwaCechySpiewu = nazwaCechySpiewu;
+        }
+
         public WierszWynikow()
         {
             ID_Klatek = new int[4];
@@ -22,9 +27,9 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public void DodajKolekcje(Kolekcja kolekcja)
         {
             ID_Klatek[0] = kolekcja.Klatki[0].ID;
-            ID_Klatek[2] = kolekcja.Klatki[1].ID;
-            ID_Klatek[3] = kolekcja.Klatki[2].ID;
-            ID_Klatek[4] = kolekcja.Klatki[3].ID;
+            ID_Klatek[1] = kolekcja.Klatki[1].ID;
+            ID_Klatek[2] = kolekcja.Klatki[2].ID;
+            ID_Klatek[3] = kolekcja.Klatki[3].ID;
         }
 
         public bool Waliduj(ApplicationDbContext context)

@@ -23,19 +23,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 .OrderByDescending(c => c.MaksPunktow).ToList();
             CechyUjemne = context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
                 .OrderByDescending(c => c.MaksPunktow).ToList();
-
-            // walidacja wyników
-            BlednyWynikDodatniKlatkiNr1 = new bool[CechyDodatnie.Count()];
-            BlednyWynikDodatniKlatkiNr2 = new bool[CechyDodatnie.Count()];
-            BlednyWynikDodatniKlatkiNr3 = new bool[CechyDodatnie.Count()];
-            BlednyWynikDodatniKlatkiNr4 = new bool[CechyDodatnie.Count()];
-            for (int i = 0; i < CechyDodatnie.Count(); ++i)
-            {
-                BlednyWynikDodatniKlatkiNr1[i] = false;
-                BlednyWynikDodatniKlatkiNr2[i] = false;
-                BlednyWynikDodatniKlatkiNr3[i] = false;
-                BlednyWynikDodatniKlatkiNr4[i] = false;
-            }
         }
 
 
@@ -65,21 +52,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
 
         [BindProperty]
-        public IList<Wynik> WynikiDodatnieKlatkiNr1 { get; set; } = default!;
-        [BindProperty]
-        public IList<Wynik> WynikiDodatnieKlatkiNr2 { get; set; } = default!;
-        [BindProperty]
-        public IList<Wynik> WynikiDodatnieKlatkiNr3 { get; set; } = default!;
-        [BindProperty]
-        public IList<Wynik> WynikiDodatnieKlatkiNr4 { get; set; } = default!;
-
-        public bool[] BlednyWynikDodatniKlatkiNr1 { get; set; }
-        public bool[] BlednyWynikDodatniKlatkiNr2 { get; set; }
-        public bool[] BlednyWynikDodatniKlatkiNr3 { get; set; }
-        public bool[] BlednyWynikDodatniKlatkiNr4 { get; set; }
-
-
-        [BindProperty]
         public int[] WynikiUjemneKlatkiNr1 { get; set; }
         [BindProperty]
         public int[] WynikiUjemneKlatkiNr2 { get; set; }
@@ -87,6 +59,19 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public int[] WynikiUjemneKlatkiNr3 { get; set; }
         [BindProperty]
         public int[] WynikiUjemneKlatkiNr4 { get; set; }
+
+
+        ////////////////////////////////////////////////////
+        ////////////// REWORK - WierszWynikow //////////////
+        ////////////////////////////////////////////////////
+        [BindProperty]
+        public WierszWynikow[] WynikiDodatnie { get; set; }
+        [BindProperty]
+        public WierszWynikow[] WynikiUjemne { get; set; }
+
+        ////////////////////////////////////////////////////
+        ////////////// REWORK - WierszWynikow //////////////
+        ////////////////////////////////////////////////////
 
 
 
@@ -101,17 +86,18 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
             // utwórz pola tabel do przechowywania wyników
             // za cechy punktowane dodatnio
-            WynikiDodatnieKlatkiNr1 = new List<Wynik>(CechyDodatnie.Count());
-            WynikiDodatnieKlatkiNr2 = new List<Wynik>(CechyDodatnie.Count());
-            WynikiDodatnieKlatkiNr3 = new List<Wynik>(CechyDodatnie.Count());
-            WynikiDodatnieKlatkiNr4 = new List<Wynik>(CechyDodatnie.Count());
-            foreach (var cechaDodatnia in CechyDodatnie)
+            ////////////////////////////////////////////////////
+            ////////////// REWORK - WierszWynikow //////////////
+            ////////////////////////////////////////////////////
+            WynikiDodatnie = new WierszWynikow[CechyDodatnie.Count()];
+            for (int i = 0; i < CechyDodatnie.Count(); ++i)
             {
-                WynikiDodatnieKlatkiNr1.Add(new Wynik(_context) { PrzyznanoZa = cechaDodatnia });
-                WynikiDodatnieKlatkiNr2.Add(new Wynik(_context) { PrzyznanoZa = cechaDodatnia });
-                WynikiDodatnieKlatkiNr3.Add(new Wynik(_context) { PrzyznanoZa = cechaDodatnia });
-                WynikiDodatnieKlatkiNr4.Add(new Wynik(_context) { PrzyznanoZa = cechaDodatnia });
+                WynikiDodatnie[i] = new WierszWynikow(CechyDodatnie[i].Nazwa);
             }
+            ////////////////////////////////////////////////////
+            ////////////// REWORK - WierszWynikow //////////////
+            ////////////////////////////////////////////////////
+
             // za cechy puntkowane ujemnie
             WynikiUjemneKlatkiNr1 = new int[CechyUjemne.Count()];
             WynikiUjemneKlatkiNr2 = new int[CechyUjemne.Count()];
@@ -327,81 +313,29 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
             // sprawdŸ, czy zosta³y wstawione wyniki,
             // jeœli tak, dodaj je do bazy danych
-            for (int i = 0; i < CechyDodatnie.Count(); ++i)
-            {   
-                if (WynikiDodatnieKlatkiNr1[i] != null)
-                {
-                    if (WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
-                    {
-                        BlednyWynikDodatniKlatkiNr1[i] = true;
-                    }
-
-                    var wynik = new Wynik(_context)
-                    {
-                        PrzyznanoDla = kolekcja.Klatki[0],
-                        PrzyznanoZa = CechyDodatnie[i],
-                        PrzyznanePunkty = WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty
-                    };
-                    _context.Wyniki.Add(wynik);
-                }
-
-                if (WynikiDodatnieKlatkiNr2[i] != null)
-                {
-                    if (WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
-                    {
-                        BlednyWynikDodatniKlatkiNr2[i] = true;
-                    }
-
-                    var wynik = new Wynik(_context)
-                    {
-                        PrzyznanoDla = kolekcja.Klatki[1],
-                        PrzyznanoZa = CechyDodatnie[i],
-                        PrzyznanePunkty = WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty
-                    };
-                    _context.Wyniki.Add(wynik);
-                }
-
-                if (WynikiDodatnieKlatkiNr3[i] != null)
-                {
-                    if (WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
-                    {
-                        BlednyWynikDodatniKlatkiNr3[i] = true;
-                    }
-
-                    var wynik = new Wynik(_context)
-                    {
-                        PrzyznanoDla = kolekcja.Klatki[2],
-                        PrzyznanoZa = CechyDodatnie[i],
-                        PrzyznanePunkty = WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty
-                    };
-                    _context.Wyniki.Add(wynik);
-                }
-
-                if (WynikiDodatnieKlatkiNr4[i] != null)
-                {
-                    if (WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
-                    {
-                        BlednyWynikDodatniKlatkiNr4[i] = true;
-                    }
-
-                    var wynik = new Wynik(_context)
-                    {
-                        PrzyznanoDla = kolekcja.Klatki[3],
-                        PrzyznanoZa = CechyDodatnie[i],
-                        PrzyznanePunkty = WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty
-                    };
-                    _context.Wyniki.Add(wynik);
-                }
-            }
-
+            bool bledneWyniki = false;
             for (int i = 0; i < CechyDodatnie.Count(); ++i)
             {
-                if (BlednyWynikDodatniKlatkiNr1[i] == true || BlednyWynikDodatniKlatkiNr2[i] == true ||
-                    BlednyWynikDodatniKlatkiNr3[i] == true || BlednyWynikDodatniKlatkiNr4[i] == true)
+                WynikiDodatnie[i].NazwaCechySpiewu = CechyDodatnie[i].Nazwa;
+                if (!WynikiDodatnie[i].Waliduj(_context))
                 {
-                    return Page();
+                    WynikiDodatnie[i].DodajKolekcje(kolekcja);
+                    await _context.AddRangeAsync(WynikiDodatnie[i][0], WynikiDodatnie[i][1], WynikiDodatnie[i][2], WynikiDodatnie[i][3]);
+                }
+                else
+                {
+                    bledneWyniki = true;
                 }
             }
+            if (bledneWyniki)
+            {
+                return Page();
+            }
+            else
+            {
+                await _context.SaveChangesAsync();
+            }
+
 
             for (int i = 0; i < CechyUjemne.Count(); ++i)
             {

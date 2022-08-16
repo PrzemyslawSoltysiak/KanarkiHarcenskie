@@ -201,24 +201,24 @@
 					</div>
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center @(Model.BlednyWynikDodatniKlatkiNr1[i] ? "border-danger alert-danger" : "")" /> 
-					<span asp-validation-for="WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty" class="text-danger"></span>
+					<input asp-for="WynikiDodatnie[i].PrzyznanePunkty[0]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiDodatnie[i].BledyWalidacji[0] ? "border-danger alert-danger" : "")" /> 
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center @(Model.BlednyWynikDodatniKlatkiNr2[i] ? "border-danger alert-danger" : "")" />
-					<span asp-validation-for="WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty" class="text-danger"></span>
+					<input asp-for="WynikiDodatnie[i].PrzyznanePunkty[1]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiDodatnie[i].BledyWalidacji[1] ? "border-danger alert-danger" : "")" />
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center @(Model.BlednyWynikDodatniKlatkiNr3[i] ? "border-danger alert-danger" : "")" />
-					<span asp-validation-for="WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty" class="text-danger"></span>
+					<input asp-for="WynikiDodatnie[i].PrzyznanePunkty[2]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiDodatnie[i].BledyWalidacji[2] ? "border-danger alert-danger" : "")" />
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center @(Model.BlednyWynikDodatniKlatkiNr4[i] ? "border-danger alert-danger" : "")" />
-					<span asp-validation-for="WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty" class="text-danger"></span>
+					<input asp-for="WynikiDodatnie[i].PrzyznanePunkty[3]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiDodatnie[i].BledyWalidacji[3] ? "border-danger alert-danger" : "")" />
 				</td>
 			</tr>
 }
