@@ -23,6 +23,19 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 .OrderByDescending(c => c.MaksPunktow).ToList();
             CechyUjemne = context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
                 .OrderByDescending(c => c.MaksPunktow).ToList();
+
+            // walidacja wyników
+            BlednyWynikDodatniKlatkiNr1 = new bool[CechyDodatnie.Count()];
+            BlednyWynikDodatniKlatkiNr2 = new bool[CechyDodatnie.Count()];
+            BlednyWynikDodatniKlatkiNr3 = new bool[CechyDodatnie.Count()];
+            BlednyWynikDodatniKlatkiNr4 = new bool[CechyDodatnie.Count()];
+            for (int i = 0; i < CechyDodatnie.Count(); ++i)
+            {
+                BlednyWynikDodatniKlatkiNr1[i] = false;
+                BlednyWynikDodatniKlatkiNr2[i] = false;
+                BlednyWynikDodatniKlatkiNr3[i] = false;
+                BlednyWynikDodatniKlatkiNr4[i] = false;
+            }
         }
 
 
@@ -59,6 +72,11 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public IList<Wynik> WynikiDodatnieKlatkiNr3 { get; set; } = default!;
         [BindProperty]
         public IList<Wynik> WynikiDodatnieKlatkiNr4 { get; set; } = default!;
+
+        public bool[] BlednyWynikDodatniKlatkiNr1 { get; set; }
+        public bool[] BlednyWynikDodatniKlatkiNr2 { get; set; }
+        public bool[] BlednyWynikDodatniKlatkiNr3 { get; set; }
+        public bool[] BlednyWynikDodatniKlatkiNr4 { get; set; }
 
 
         [BindProperty]
@@ -315,7 +333,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     if (WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
                     {
-                        return Page();
+                        BlednyWynikDodatniKlatkiNr1[i] = true;
                     }
 
                     var wynik = new Wynik(_context)
@@ -331,7 +349,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     if (WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
                     {
-                        return Page();
+                        BlednyWynikDodatniKlatkiNr2[i] = true;
                     }
 
                     var wynik = new Wynik(_context)
@@ -347,7 +365,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     if (WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
                     {
-                        return Page();
+                        BlednyWynikDodatniKlatkiNr3[i] = true;
                     }
 
                     var wynik = new Wynik(_context)
@@ -363,7 +381,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     if (WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty > CechyDodatnie[i].MaksPunktow)
                     {
-                        return Page();
+                        BlednyWynikDodatniKlatkiNr4[i] = true;
                     }
 
                     var wynik = new Wynik(_context)
@@ -373,6 +391,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                         PrzyznanePunkty = WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty
                     };
                     _context.Wyniki.Add(wynik);
+                }
+            }
+
+            for (int i = 0; i < CechyDodatnie.Count(); ++i)
+            {
+                if (BlednyWynikDodatniKlatkiNr1[i] == true || BlednyWynikDodatniKlatkiNr2[i] == true ||
+                    BlednyWynikDodatniKlatkiNr3[i] == true || BlednyWynikDodatniKlatkiNr4[i] == true)
+                {
+                    return Page();
                 }
             }
 
