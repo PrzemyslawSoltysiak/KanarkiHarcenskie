@@ -86,6 +86,10 @@
 				<input asp-for="Konkurs.Data" class="form-control" />
 			</div>
 		</div>
+		@*<div class="row">
+			<span asp-validation-for="Konkurs.Miejscowosc" class="text-danger"></span>
+		</div>*@
+		
 
 		@* DANE HODOWCY *@
 		<div class="row mb-3">
@@ -135,6 +139,9 @@
 						</label>
 						<input asp-for="Hodowca.SygnumHodowcy" class="col form-control me-4" />
 					</div>
+					@*<div class="container row mx-auto">
+						<span asp-validation-for="Hodowca.SygnumHodowcy" class="text-danger fw-normal"></span>
+					</div>*@
 				</th>
 			</tr>
 
@@ -184,30 +191,34 @@
 				<td>
 					<div class="container row">
 						<div class="col-8 text-start">
-							@Html.DisplayFor(model => model.CechyDodatnie[i].Nazwa)
+							@Model.CechyDodatnie[i].Nazwa
 						</div>
 						<div class="col-1 text-end"> do </div>
 						<div class="col-2 text-end mx-0 ">
-							@Html.DisplayFor(model => model.CechyDodatnie[i].MaksPunktow)
+							@Model.CechyDodatnie[i].MaksPunktow
 						</div>
 						<div class="col-1"> pkt </div>
 					</div>
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr1[i]" type="text" style="width: 6ch;" 
+					<input asp-for="WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
 					       class="form-control mx-auto my-1 text-center" />
+					<span asp-validation-for="WynikiDodatnieKlatkiNr1[i].PrzyznanePunkty" class="text-danger"></span>
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr2[i]" type="text" style="width: 6ch;" 
+					<input asp-for="WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
 					       class="form-control mx-auto my-1 text-center" />
+					<span asp-validation-for="WynikiDodatnieKlatkiNr2[i].PrzyznanePunkty" class="text-danger"></span>
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr3[i]" type="text" style="width: 6ch;" 
+					<input asp-for="WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
 					       class="form-control mx-auto my-1 text-center" />
+					<span asp-validation-for="WynikiDodatnieKlatkiNr3[i].PrzyznanePunkty" class="text-danger"></span>
 				</td>
 				<td>
-					<input asp-for="WynikiDodatnieKlatkiNr4[i]" type="text" style="width: 6ch;" 
+					<input asp-for="WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty" type="text" style="width: 6ch;" 
 					       class="form-control mx-auto my-1 text-center" />
+					<span asp-validation-for="WynikiDodatnieKlatkiNr4[i].PrzyznanePunkty" class="text-danger"></span>
 				</td>
 			</tr>
 }

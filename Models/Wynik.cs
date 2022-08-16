@@ -14,6 +14,8 @@ namespace KanarkiHercenskie.Models
             _context = context;
         }
 
+        public Wynik() { }
+
 
         [Key]
         public int ID { get; set; }
@@ -35,7 +37,9 @@ namespace KanarkiHercenskie.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (PrzyznanePunkty > _context.CechySpiewuCOM.Find(NazwaCechySpiewu)!.MaksPunktow)
+            var wynik = _context.Wyniki.Include(w => w.PrzyznanoZa).Where(w => w.ID == ID).First();
+
+            if (wynik.PrzyznanePunkty > wynik.PrzyznanoZa.MaksPunktow)
             {
                 yield return new ValidationResult(
                     "Liczba punktów nie może przekraczać maksymalnej liczby punków za daną Cechę Śpiewu.",
