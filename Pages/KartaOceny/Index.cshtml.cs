@@ -293,7 +293,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             {   
                 if (WynikiDodatnieKlatkiNr1[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[0],
                         PrzyznanoZa = CechyDodatnie[i],
@@ -304,7 +304,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (WynikiDodatnieKlatkiNr2[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[1],
                         PrzyznanoZa = CechyDodatnie[i],
@@ -315,7 +315,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (WynikiDodatnieKlatkiNr3[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[2],
                         PrzyznanoZa = CechyDodatnie[i],
@@ -326,7 +326,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (WynikiDodatnieKlatkiNr4[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[3],
                         PrzyznanoZa = CechyDodatnie[i],
@@ -340,7 +340,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             {
                 if (WynikiUjemneKlatkiNr1[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[0],
                         PrzyznanoZa = CechyUjemne[i],
@@ -351,7 +351,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (WynikiUjemneKlatkiNr2[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[1],
                         PrzyznanoZa = CechyUjemne[i],
@@ -362,7 +362,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (WynikiUjemneKlatkiNr3[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[2],
                         PrzyznanoZa = CechyUjemne[i],
@@ -373,7 +373,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (WynikiUjemneKlatkiNr4[i] != 0)
                 {
-                    var wynik = new Wynik()
+                    var wynik = new Wynik(_context)
                     {
                         PrzyznanoDla = kolekcja.Klatki[3],
                         PrzyznanoZa = CechyUjemne[i],
