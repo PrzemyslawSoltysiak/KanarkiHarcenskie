@@ -263,30 +263,34 @@
 				<td>
 					<div class="container row">
 						<div class="col-8 text-start">
-							@Html.DisplayFor(model => model.CechyUjemne[i].Nazwa)
+							@Model.CechyUjemne[i].Nazwa
 						</div>
 						<div class="col-1 text-end"> do </div>
 						<div class="col-2 text-end mx-0 ">
-							@Html.DisplayFor(model => model.CechyUjemne[i].MaksPunktow)
+							@Model.CechyUjemne[i].MaksPunktow
 						</div>
 						<div class="col-1"> pkt </div>
 					</div>
 				</td>
 				<td>
-					<input asp-for="WynikiUjemneKlatkiNr1[i]" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
+					<input asp-for="WynikiUjemne[i].PrzyznanePunkty[0]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiUjemne[i].BledyWalidacji[0] ? "border-danger alert-danger" : "")" /> 
 				</td>
 				<td>
-					<input asp-for="WynikiUjemneKlatkiNr2[i]" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
+					<input asp-for="WynikiUjemne[i].PrzyznanePunkty[1]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiUjemne[i].BledyWalidacji[1] ? "border-danger alert-danger" : "")" />
 				</td>
 				<td>
-					<input asp-for="WynikiUjemneKlatkiNr3[i]" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
+					<input asp-for="WynikiUjemne[i].PrzyznanePunkty[2]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiUjemne[i].BledyWalidacji[2] ? "border-danger alert-danger" : "")" />
 				</td>
 				<td>
-					<input asp-for="WynikiUjemneKlatkiNr4[i]" type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
+					<input asp-for="WynikiUjemne[i].PrzyznanePunkty[3]" type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center 
+                                  @(Model.WynikiUjemne[i].BledyWalidacji[3] ? "border-danger alert-danger" : "")" />
 				</td>
 			</tr>
 }

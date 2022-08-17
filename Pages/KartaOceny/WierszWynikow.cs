@@ -37,7 +37,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             bool bladWalidacji = false;
             for (int i = 0; i < 4; ++i)
             {
-                if (PrzyznanePunkty[i] > context.CechySpiewuCOM.Find(NazwaCechySpiewu).MaksPunktow)
+                if (PrzyznanePunkty[i] > context.CechySpiewuCOM.Find(NazwaCechySpiewu).MaksPunktow ||
+                    PrzyznanePunkty[i] < 0)
                 {
                     bladWalidacji = true;
                     BledyWalidacji[i] = true;
