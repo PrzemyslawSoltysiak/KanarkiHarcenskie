@@ -17,12 +17,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public IndexModel(ApplicationDbContext context)
         {
             _context = context;
-
-            // pobierz informacje o cechach œpiewu
-            CechyDodatnie = context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Dodatnie)
-                .OrderByDescending(c => c.MaksPunktow).ToList();
-            CechyUjemne = context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
-                .OrderByDescending(c => c.MaksPunktow).ToList();
         }
 
 
@@ -66,6 +60,12 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             {
                 return NotFound();
             }
+
+            // pobierz informacje o cechach œpiewu
+            CechyDodatnie = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Dodatnie)
+                .OrderByDescending(c => c.MaksPunktow).ToList();
+            CechyUjemne = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
+                .OrderByDescending(c => c.MaksPunktow).ToList();
 
             // utwórz pola tabel do przechowywania wyników
             // za cechy punktowane dodatnio
