@@ -12,12 +12,16 @@ namespace KanarkiHercenskie.Pages.Kolekcje
 {
     public class CreateModel : _CreateEditPageModel
     {
-        public CreateModel(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
+
+        public CreateModel(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult OnGet()
         {
-            GenerujListy();
-
+            GenerujListy(_context);
             return Page();
         }
 
@@ -42,7 +46,7 @@ namespace KanarkiHercenskie.Pages.Kolekcje
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid || 
-                _context.Kolekcje == null || 
+                _context.Konkursy == null || 
                 _context.Hodowcy == null || 
                 _context.Kolekcje == null ||
                 _context.Klatki == null)

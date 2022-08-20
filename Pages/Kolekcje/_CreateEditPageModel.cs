@@ -12,36 +12,27 @@ namespace KanarkiHercenskie.Pages.Kolekcje
 {
     public class _CreateEditPageModel : PageModel
     {
-        protected readonly ApplicationDbContext _context;
-
-        public _CreateEditPageModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-
-        // TO-DO: Sprytniejszy (?) sposób generowania list
         public SelectList ListaKonkursow { get; set; }
         public SelectList ListaHodowcow { get; set; }
 
-        protected void GenerujListy()
+        protected void GenerujListy(ApplicationDbContext context, object wybranyKonkurs = null, object wybranyHodowca = null)
         {
-            if (_context.Konkursy == null || _context.Hodowcy == null)
+            if (context.Konkursy == null || context.Hodowcy == null)
             {
                 throw new Exception("Konkursy == null || Hodowcy == null");
             }
 
-            var slownikKonkursy = _context.Konkursy.ToDictionary
-                (k => k.ID,
-                 v => v.ToString());
+            var konkursyQuery = from konkursy in context.Konkursy
+                                orderby konkursy.ID
+                                select konkursy;
 
-            ListaKonkursow = new SelectList(slownikKonkursy, "Key", "Value");
+            ListaKonkursow = new SelectList(konkursyQuery, "ID", "Podsumowanie", wybranyKonkurs);
 
-            var slownikHodowcy = _context.Hodowcy.ToDictionary
-                (k => k.SygnumHodowcy,
-                 v => v.ToString());
+            var hodowcyQuery = from hodowcy in context.Hodowcy
+                               orderby hodowcy.SygnumHodowcy
+                               select hodowcy;
 
-            ListaHodowcow = new SelectList(slownikHodowcy, "Key", "Value");
+            ListaHodowcow = new SelectList(hodowcyQuery, "SygnumHodowcy", "Podsumowanie", wybranyHodowca);
         }
     }
 }

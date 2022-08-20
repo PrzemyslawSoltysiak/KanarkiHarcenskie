@@ -13,7 +13,12 @@ namespace KanarkiHercenskie.Pages.Kolekcje
 {
     public class EditModel : _CreateEditPageModel
     {
-        public EditModel(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
+
+        public EditModel(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         [BindProperty]
         public Kolekcja Kolekcja { get; set; } = default!;
@@ -41,8 +46,7 @@ namespace KanarkiHercenskie.Pages.Kolekcje
             Klatki[2] = kolekcja.Klatki[2];
             Klatki[3] = kolekcja.Klatki[3];
 
-            GenerujListy();
-
+            GenerujListy(_context);
             return Page();
         }
 
