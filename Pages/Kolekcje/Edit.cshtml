@@ -13,13 +13,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
                 <label asp-for="Kolekcja.SygnumWlasciciela" class="form-label">Właściciel</label>
-                <select asp-for="Kolekcja.SygnumWlasciciela" readonly class ="form-control" 
-                        asp-items="Model.ListaHodowcow"></select>
+                <select disabled class ="form-control" asp-items="Model.ListaHodowcow" value="@Model.Kolekcja.SygnumWlasciciela"></select>
+                <input asp-for="Kolekcja.SygnumWlasciciela" readonly hidden />
             </div>
             <div class="mb-3">
                 <label asp-for="Kolekcja.ID_Konkursu" class="form-label">Konkurs</label>
-                <select asp-for="Kolekcja.ID_Konkursu" readonly class ="form-control" 
-                        asp-items="Model.ListaKonkursow"></select>
+                <select disabled class ="form-control" asp-items="Model.ListaKonkursow" value="@Model.Kolekcja.ID_Konkursu"></select>
+                <input asp-for="Kolekcja.ID_Konkursu" readonly hidden />
             </div>
             <div class="mt-4 mb-4 text-center">
                 <label>Numer obrączki rodowej kanarka w klatce numer</label>
