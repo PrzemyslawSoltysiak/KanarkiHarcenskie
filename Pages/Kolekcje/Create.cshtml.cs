@@ -68,7 +68,7 @@ namespace KanarkiHercenskie.Pages.Kolekcje
             await _context.Kolekcje.AddAsync(kolekcja);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Index");
         }
     }
 }

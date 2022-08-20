@@ -23,9 +23,6 @@ namespace KanarkiHercenskie.Pages.Kolekcje
         [BindProperty]
         public Kolekcja Kolekcja { get; set; } = default!;
 
-        [BindProperty]
-        public Klatka[] Klatki { get; set; } = new Klatka[4];
-
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Kolekcje == null || _context.Klatki == null)
@@ -41,11 +38,6 @@ namespace KanarkiHercenskie.Pages.Kolekcje
             }
             Kolekcja = kolekcja;
 
-            Klatki[0] = kolekcja.Klatki[0];
-            Klatki[1] = kolekcja.Klatki[1];
-            Klatki[2] = kolekcja.Klatki[2];
-            Klatki[3] = kolekcja.Klatki[3];
-
             GenerujListy(_context);
             return Page();
         }
@@ -59,15 +51,10 @@ namespace KanarkiHercenskie.Pages.Kolekcje
                              k.ID_Konkursu == Kolekcja.ID_Konkursu))
                 .FirstAsync();
 
-            kolekcja.Klatki[0].NrObraczkiRodowej = Klatki[0].NrObraczkiRodowej;
-            kolekcja.Klatki[1].NrObraczkiRodowej = Klatki[1].NrObraczkiRodowej;
-            kolekcja.Klatki[2].NrObraczkiRodowej = Klatki[2].NrObraczkiRodowej;
-            kolekcja.Klatki[3].NrObraczkiRodowej = Klatki[3].NrObraczkiRodowej;
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            kolekcja.Klatki[0].NrObraczkiRodowej = Kolekcja.Klatki[0].NrObraczkiRodowej;
+            kolekcja.Klatki[1].NrObraczkiRodowej = Kolekcja.Klatki[1].NrObraczkiRodowej;
+            kolekcja.Klatki[2].NrObraczkiRodowej = Kolekcja.Klatki[2].NrObraczkiRodowej;
+            kolekcja.Klatki[3].NrObraczkiRodowej = Kolekcja.Klatki[3].NrObraczkiRodowej;
 
             _context.Attach(kolekcja).State = EntityState.Modified;
 

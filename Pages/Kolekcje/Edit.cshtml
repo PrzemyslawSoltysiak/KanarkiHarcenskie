@@ -14,32 +14,22 @@
             <div class="mb-3">
                 <label asp-for="Kolekcja.SygnumWlasciciela" class="form-label">Właściciel</label>
                 <select asp-for="Kolekcja.SygnumWlasciciela" readonly class ="form-control" 
-                    asp-items="Model.ListaHodowcow"></select>
+                        asp-items="Model.ListaHodowcow"></select>
             </div>
             <div class="mb-3">
                 <label asp-for="Kolekcja.ID_Konkursu" class="form-label">Konkurs</label>
                 <select asp-for="Kolekcja.ID_Konkursu" readonly class ="form-control" 
-                    asp-items="Model.ListaKonkursow"></select>
+                        asp-items="Model.ListaKonkursow"></select>
             </div>
             <div class="mt-4 mb-4 text-center">
                 <label>Numer obrączki rodowej kanarka w klatce numer</label>
                 <div class="row text-center mt-2">
+@for (int i = 0; i < 4; ++i) {
                     <div class="col">
                         <label class="form-label">1</label>
-                        <input asp-for="Klatki[0].NrObraczkiRodowej" type="text" class="form-control text-center" />
+                        <input asp-for="Kolekcja.Klatki[i].NrObraczkiRodowej" type="text" class="form-control text-center" />
                     </div>
-                    <div class="col">
-                        <label class="form-label">2</label>
-                        <input asp-for="Klatki[1].NrObraczkiRodowej" type="text" class="form-control text-center" />
-                    </div>
-                    <div class="col">
-                        <label class="form-label">3</label>
-                        <input asp-for="Klatki[2].NrObraczkiRodowej" type="text" class="form-control text-center" />
-                    </div>
-                    <div class="col">
-                        <label class="form-label">4</label>
-                        <input asp-for="Klatki[3].NrObraczkiRodowej" type="text" class="form-control text-center" />
-                    </div>
+}
                 </div>
             </div>
             <div class="form-group">
