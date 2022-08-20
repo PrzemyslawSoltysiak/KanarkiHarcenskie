@@ -8,7 +8,8 @@ Serwis **Kanarki Herceńskie** pozwala na przeprowadzanie Konkursów kanarków h
 
 #### Konkursy:
 - dodawanie nowych Konkursów,
-- usuwanie Konkursów (wyświetlana jest wtedy liczba powiązanych Kolekcji oraz Przesłuchań, które zostaną usunięte wraz z Konkursem).
+- usuwanie Konkursów (wyświetlana jest wtedy liczba powiązanych Kolekcji oraz Przesłuchań, które zostaną usunięte wraz z Konkursem),
+- rejestracja Kolekcji na wskazany Konkurs.
 
 #### Hodowcy:
 - dodawanie nowych Hodowców (Sygnum Hodowcy generowane jest automatycznie na podstawie podanego Nazwiska),
