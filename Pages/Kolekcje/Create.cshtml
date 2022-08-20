@@ -12,13 +12,13 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="SygnumWlasciciela" class="form-label">Właściciel</label>
-                <select asp-for="SygnumWlasciciela" class ="form-control" 
+                <label asp-for="Kolekcja.SygnumWlasciciela" class="form-label">Właściciel</label>
+                <select asp-for="Kolekcja.SygnumWlasciciela" class ="form-control" 
                     asp-items="Model.ListaHodowcow"></select>
             </div>
             <div class="mb-3">
-                <label asp-for="ID_Konkursu" class="form-label">Konkurs</label>
-                <select asp-for="ID_Konkursu" class ="form-control" 
+                <label asp-for="Kolekcja.ID_Konkursu" class="form-label">Konkurs</label>
+                <select asp-for="Kolekcja.ID_Konkursu" class ="form-control" 
                     asp-items="Model.ListaKonkursow"></select>
             </div>
             <div class="mt-4 mb-4 text-center">
@@ -26,19 +26,19 @@
                 <div class="row text-center mt-2">
                     <div class="col">
                         <label class="form-label">1</label>
-                        <input asp-for="NrObraczkiRodowej_1" type="text" class="form-control text-center" />
+                        <input asp-for="Kolekcja.Klatki[0].NrObraczkiRodowej" type="text" class="form-control text-center" />
                     </div>
                     <div class="col">
                         <label class="form-label">2</label>
-                        <input asp-for="NrObraczkiRodowej_2" type="text" class="form-control text-center" />
+                        <input asp-for="Kolekcja.Klatki[1].NrObraczkiRodowej" type="text" class="form-control text-center" />
                     </div>
                     <div class="col">
                         <label class="form-label">3</label>
-                        <input asp-for="NrObraczkiRodowej_3" type="text" class="form-control text-center" />
+                        <input asp-for="Kolekcja.Klatki[2].NrObraczkiRodowej" type="text" class="form-control text-center" />
                     </div>
                     <div class="col">
                         <label class="form-label">4</label>
-                        <input asp-for="NrObraczkiRodowej_4" type="text" class="form-control text-center" />
+                        <input asp-for="Kolekcja.Klatki[3].NrObraczkiRodowej" type="text" class="form-control text-center" />
                     </div>
                 </div>
             </div>

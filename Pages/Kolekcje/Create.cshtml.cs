@@ -26,52 +26,40 @@ namespace KanarkiHercenskie.Pages.Kolekcje
         }
 
         [BindProperty]
-        public string SygnumWlasciciela { get; set; }
-
-        [BindProperty]
-        public int ID_Konkursu { get; set; }
-
-        // TO-DO: Podmiana na tablicę Klatek (patrz: strona Edycji)
-        [BindProperty]
-        public int NrObraczkiRodowej_1 { get; set; }
-        [BindProperty]
-        public int NrObraczkiRodowej_2 { get; set; }
-        [BindProperty]
-        public int NrObraczkiRodowej_3 { get; set; }
-        [BindProperty]
-        public int NrObraczkiRodowej_4 { get; set; }
+        public Kolekcja Kolekcja { get; set; } 
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || 
-                _context.Konkursy == null || 
+            if (_context.Konkursy == null || 
                 _context.Hodowcy == null || 
                 _context.Kolekcje == null ||
                 _context.Klatki == null)
             {
+                GenerujListy(_context);
                 return Page();
             }
 
             // TO-DO: Może rozwiązać to w jakiś sprytniejszy sposób
-            if (_context.Kolekcje.Any(k => (k.Wlasciciel.SygnumHodowcy == SygnumWlasciciela &&
-                                            k.Konkurs.ID == ID_Konkursu)))
+            if (_context.Kolekcje.Any(k => (k.Wlasciciel.SygnumHodowcy == Kolekcja.SygnumWlasciciela &&
+                                            k.Konkurs.ID == Kolekcja.ID_Konkursu)))
                 throw new Exception("Do każdego Konkursu Hodowca może wystawić TYLKO JEDNĄ Kolekcję.");
 
             if (_context.Klatki.Any(
-                k => (k.Kolekcja.Wlasciciel.SygnumHodowcy == SygnumWlasciciela &&
-                      k.Kolekcja.Konkurs.ID == ID_Konkursu)))
+                k => (k.Kolekcja.Wlasciciel.SygnumHodowcy == Kolekcja.SygnumWlasciciela &&
+                      k.Kolekcja.Konkurs.ID == Kolekcja.ID_Konkursu)))
                 throw new Exception("Istnieją już Klatki przypisane do Kolekcji.");
 
 
             Kolekcja kolekcja = new Kolekcja()
             {
-                SygnumWlasciciela = this.SygnumWlasciciela,
-                ID_Konkursu = this.ID_Konkursu
+                SygnumWlasciciela = Kolekcja.SygnumWlasciciela,
+                ID_Konkursu = Kolekcja.ID_Konkursu
             };
 
-            kolekcja.DodajKlatki(NrObraczkiRodowej_1, NrObraczkiRodowej_2, NrObraczkiRodowej_3, NrObraczkiRodowej_4);
+            kolekcja.DodajKlatki(Kolekcja.Klatki[0].NrObraczkiRodowej, Kolekcja.Klatki[1].NrObraczkiRodowej,
+                                 Kolekcja.Klatki[2].NrObraczkiRodowej, Kolekcja.Klatki[3].NrObraczkiRodowej);
 
             await _context.Kolekcje.AddAsync(kolekcja);
             await _context.SaveChangesAsync();
