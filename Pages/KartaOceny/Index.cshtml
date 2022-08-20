@@ -76,7 +76,7 @@
 				Miejsowość:
 			</label>
 			<div class="col">
-				<input asp-for="Konkurs.Miejscowosc" class="form-control" />
+				<input asp-for="Konkurs.Miejscowosc" class="form-control @(Model.BrakMiejscowosci ? "border-danger alger-danger" : "")" />
 			</div>
 			@* Data *@
 			<label asp-for="Konkurs.Data" class="col-auto col-form-label">
@@ -97,10 +97,17 @@
 				<input asp-for="ImieNazwiskoHodowcy" class="form-control @(Model.BledneImieNazwisko ? "border-danger alger-danger" : "")" />
 			</div>
 		</div>
+	@if (Model.BrakMiejscowosci) {
+	<div class="row mb-4">
+		<span class="text-danger">
+			Należy podać Miejscowość.
+		</span>
+	</div>
+	}
 	@if (Model.BledneImieNazwisko) {
 		<div class="row mb-4">
 			<span class="text-danger">
-				Hodowca o podanym Sygnum jest zarejestrowany w systemie, jednak jego imię lub nazwisko
+				Hodowca o podanym Sygnum jest zarejestrowany w systemie, jednak jego Imię lub Nazwisko
 				nie zgadza się z danymi wprowadzonymi w formularzu.
 			</span>
 		</div>
