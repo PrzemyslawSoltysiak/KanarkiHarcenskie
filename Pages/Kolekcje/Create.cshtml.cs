@@ -22,6 +22,12 @@ namespace KanarkiHercenskie.Pages.Kolekcje
         public IActionResult OnGet(int? idKonkursu = null, int? sygnumWlasciciela = null)
         {
             GenerujListy(_context, idKonkursu, sygnumWlasciciela);
+
+            if (idKonkursu != null)
+            {
+                PrzekierowanoZListyKonkursow = true;
+            }
+
             return Page();
         }
 
@@ -30,6 +36,7 @@ namespace KanarkiHercenskie.Pages.Kolekcje
 
 
         public bool KolekcjaJuzIstnieje = false;
+        public bool PrzekierowanoZListyKonkursow = false;
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

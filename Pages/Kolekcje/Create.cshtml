@@ -45,7 +45,14 @@
             </div>
             <div>
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
+            @if (Model.PrzekierowanoZListyKonkursow)
+            {
+                <a asp-page="../Konkursy/Index" class="ms-2">Powrót do Konkursów</a> @("|")
+                <a asp-page="Index">Powrót do Kolekcji</a>
+            }
+            else {
                 <a asp-page="Index" class="ms-2">Powrót do listy</a>
+            }
             </div>
         </form>
     </div>
