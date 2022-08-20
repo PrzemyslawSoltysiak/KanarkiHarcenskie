@@ -19,9 +19,9 @@ namespace KanarkiHercenskie.Pages.Kolekcje
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? idKonkursu = null, int? sygnumWlasciciela = null)
         {
-            GenerujListy(_context);
+            GenerujListy(_context, idKonkursu, sygnumWlasciciela);
             return Page();
         }
 
