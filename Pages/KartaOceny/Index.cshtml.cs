@@ -32,13 +32,13 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
 
         [BindProperty]
-        public Kolekcja Kolekcja { get; set; }
+        public Kolekcja Kolekcja { get; set; } = default!;
 
         [BindProperty]
         public int[] NumeryObraczekRodowych { get; set; } = new int[4];
 
         [BindProperty]
-        public Przesluchanie Przesluchanie { get; set; }
+        public Przesluchanie Przesluchanie { get; set; } = default!;
 
 
         public IList<CechaSpiewuCOM> CechyDodatnie { get; set; } = default!;
@@ -153,16 +153,10 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (Konkurs.Miejscowosc == null)
+            if (Konkurs.Miejscowosc == null || (ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null))
             {
-                return Page();
+                return PobierzCechyPotemReturnPage();
             }
-
-            if (ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null)
-            {
-                return Page();
-            }
-
 
             // WIELKI TEST NULLÓW
             if (WielkiTestNullow())
@@ -380,6 +374,16 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 GodzinaDo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
                                          DateTime.Now.Hour, DateTime.Now.Minute, 0).AddMinutes(30)
             };
+        }
+
+        private IActionResult PobierzCechyPotemReturnPage()
+        {
+            // pobierz informacje o cechach œpiewu
+            CechyDodatnie = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Dodatnie)
+                .OrderByDescending(c => c.MaksPunktow).ToList();
+            CechyUjemne = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
+                .OrderByDescending(c => c.MaksPunktow).ToList();
+            return Page();
         }
     }
 
