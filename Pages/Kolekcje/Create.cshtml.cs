@@ -26,7 +26,10 @@ namespace KanarkiHercenskie.Pages.Kolekcje
         }
 
         [BindProperty]
-        public Kolekcja Kolekcja { get; set; } 
+        public Kolekcja Kolekcja { get; set; }
+
+
+        public bool KolekcjaJuzIstnieje = false;
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -41,16 +44,17 @@ namespace KanarkiHercenskie.Pages.Kolekcje
                 return Page();
             }
 
-            // TO-DO: Może rozwiązać to w jakiś sprytniejszy sposób
             if (_context.Kolekcje.Any(k => (k.Wlasciciel.SygnumHodowcy == Kolekcja.SygnumWlasciciela &&
                                             k.Konkurs.ID == Kolekcja.ID_Konkursu)))
-                throw new Exception("Do każdego Konkursu Hodowca może wystawić TYLKO JEDNĄ Kolekcję.");
-
-            if (_context.Klatki.Any(
-                k => (k.Kolekcja.Wlasciciel.SygnumHodowcy == Kolekcja.SygnumWlasciciela &&
-                      k.Kolekcja.Konkurs.ID == Kolekcja.ID_Konkursu)))
-                throw new Exception("Istnieją już Klatki przypisane do Kolekcji.");
-
+            {
+                KolekcjaJuzIstnieje = true;
+                GenerujListy(_context);
+                return Page();
+            }
+            else
+            {
+                KolekcjaJuzIstnieje = false;
+            }
 
             Kolekcja kolekcja = new Kolekcja()
             {
