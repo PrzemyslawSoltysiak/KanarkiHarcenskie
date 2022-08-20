@@ -86,10 +86,6 @@
 				<input asp-for="Konkurs.Data" class="form-control" />
 			</div>
 		</div>
-		@*<div class="row">
-			<span asp-validation-for="Konkurs.Miejscowosc" class="text-danger"></span>
-		</div>*@
-		
 
 		@* DANE HODOWCY *@
 		<div class="row mb-3">
@@ -98,9 +94,17 @@
 				Hodowca (imię i nazwisko):
 			</label>
 			<div class="col">
-				<input asp-for="ImieNazwiskoHodowcy" class="form-control" />
+				<input asp-for="ImieNazwiskoHodowcy" class="form-control @(Model.BledneImieNazwisko ? "border-danger alger-danger" : "")" />
 			</div>
 		</div>
+	@if (Model.BledneImieNazwisko) {
+		<div class="row mb-4">
+			<span class="text-danger">
+				Hodowca o podanym Sygnum jest zarejestrowany w systemie, jednak jego imię lub nazwisko
+				nie zgadza się z danymi wprowadzonymi w formularzu.
+			</span>
+		</div>
+	}
 
 		@* TABELA *@
 		<table class="table table-bordered text-center">

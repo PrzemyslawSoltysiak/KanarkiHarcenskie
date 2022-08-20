@@ -52,6 +52,9 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public WierszWynikow[] WynikiUjemne { get; set; }
 
 
+        public bool BledneImieNazwisko { get; set; } = false;
+
+
         public async Task<IActionResult> OnGetAsync(
             int? idKonkursu = null, string? sygnumHodowcy = null)
         {
@@ -153,14 +156,14 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // WIELKI TEST NULLÓW
+            if (WielkiTestNullow())
+                return NotFound();
+
             if (Konkurs.Miejscowosc == null || (ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null))
             {
                 return PobierzCechyPotemReturnPage();
             }
-
-            // WIELKI TEST NULLÓW
-            if (WielkiTestNullow())
-                return NotFound();
 
             bool nowyKonkursLubHodowca = false;
 
@@ -196,8 +199,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             if (hodowca != null)
             {
                 if (hodowca.Imie != imieHodowcy || hodowca.Nazwisko != nazwiskoHodowcy)
-                    throw new Exception("Znaleziono Hodowcê o podanym Sygnum, jednak jego dane " +
-                                        "nie pokrywaj¹ siê z danymi w formularzu.");
+                {
+                    BledneImieNazwisko = true;
+                    return PobierzCechyPotemReturnPage();
+                }
+                else
+                {
+                    BledneImieNazwisko = false;
+                }
+
             }
             // jeœli Hodowca nie istnieje, utwórz nowego Hodowcê i dodaj go do bazy danych
             else
