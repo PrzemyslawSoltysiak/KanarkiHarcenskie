@@ -43,8 +43,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Ranga)
             </td>
-            <td>
+            <td style="width: 32ch;">
                 @* <a asp-page="./Details" asp-route-id="@item.ID">Szczegóły</a> | *@
+                <a asp-page="../Kolekcje/Create" asp-route-idKonkursu="@item.ID">Zarejestruj Kolekcję</a> | 
                 <a asp-page="./Delete" asp-route-id="@item.ID">Usuń</a>
             </td>
         </tr>
