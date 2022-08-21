@@ -116,6 +116,10 @@
                                     }
                                 }
                             }
+                            else
+                            {
+                                <a asp-page="../Przesluchania/Create" asp-route-idKolekcji="@kolekcja.ID">Dodaj termin</a>
+                            }
                         </td>
                         <td>
                             @if (Model.WynikiKonkursu.Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID).Any())

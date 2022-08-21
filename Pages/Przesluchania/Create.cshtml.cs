@@ -12,11 +12,16 @@ namespace KanarkiHercenskie.Pages.Przesluchania
 {
     public class CreateModel : _CreateEditPageModel
     {
-        public CreateModel(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
 
-        public IActionResult OnGet()
+        public CreateModel(ApplicationDbContext context)
         {
-            GenerujListeKolekcji();
+            _context = context;
+        }
+
+        public IActionResult OnGet(int? idKolekcji)
+        {
+            GenerujListeKolekcji(_context, idKolekcji);
             return Page();
         }
 

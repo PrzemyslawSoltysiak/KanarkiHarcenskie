@@ -12,29 +12,21 @@ namespace KanarkiHercenskie.Pages.Przesluchania
 {
     public class _CreateEditPageModel : PageModel
     {
-        protected readonly ApplicationDbContext _context;
-
-        public _CreateEditPageModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         public SelectList ListaKolekcji { get; set; }
 
-        protected void GenerujListeKolekcji()
+        protected void GenerujListeKolekcji(ApplicationDbContext context, object wybranaKolekcja = null)
         {
-            if (_context == null || _context.Kolekcje == null || 
-                _context.Hodowcy == null || _context.Konkursy == null)
+            if (context.Kolekcje == null || context.Hodowcy == null || context.Konkursy == null)
             {
-                throw new Exception();
+                throw new Exception("context.Kolekcje == null || context.Hodowcy == null || context.Konkursy == null");
             }
 
-            var slownikKolekcje = _context.Kolekcje.ToDictionary(
+            var slownikKolekcje = context.Kolekcje.ToDictionary(
                 k => k.ID,
-                v => (_context.Hodowcy.Where(h => h.SygnumHodowcy == v.SygnumWlasciciela).First().Podsumowanie) + ", " +
-                     _context.Konkursy.Where(k => k.ID == v.ID_Konkursu).First().Podsumowanie);
+                v => (context.Hodowcy.Where(h => h.SygnumHodowcy == v.SygnumWlasciciela).First().Podsumowanie) + ", " +
+                     context.Konkursy.Where(k => k.ID == v.ID_Konkursu).First().Podsumowanie);
 
-            ListaKolekcji = new SelectList(slownikKolekcje, "Key", "Value");
+            ListaKolekcji = new SelectList(slownikKolekcje, "Key", "Value", wybranaKolekcja);
         }
 
     }

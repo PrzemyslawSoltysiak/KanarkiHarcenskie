@@ -13,7 +13,12 @@ namespace KanarkiHercenskie.Pages.Przesluchania
 {
     public class EditModel : _CreateEditPageModel
     {
-        public EditModel(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
+
+        public EditModel(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         [BindProperty]
         public Przesluchanie Przesluchanie { get; set; } = default!;
@@ -31,7 +36,7 @@ namespace KanarkiHercenskie.Pages.Przesluchania
                 return NotFound();
             }
             Przesluchanie = przesluchanie;
-            GenerujListeKolekcji();
+            GenerujListeKolekcji(_context);
             return Page();
         }
 
