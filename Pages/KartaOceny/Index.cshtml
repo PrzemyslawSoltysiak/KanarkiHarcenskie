@@ -238,12 +238,8 @@
 						<div class="col-8 text-start">
 							@Model.CechyDodatnie[i].Nazwa
 						</div>
-						<div class="col-1 text-end @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
-											         Model.WynikiDodatnie[i].BledyWalidacji[2] || Model.WynikiDodatnie[i].BledyWalidacji[3] 
-							? "text-danger fw-bold" : "")"> do </div>
-						<div class="col-2 text-end mx-0 @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
-											              Model.WynikiDodatnie[i].BledyWalidacji[2] || Model.WynikiDodatnie[i].BledyWalidacji[3] 
-							? "text-danger fw-bold" : "")">
+						<div class="col-1 text-end @(Model.WynikiDodatnie[i].BledyWalidacji.Contains(true) ? "text-danger fw-bold" : "")"> do </div>
+						<div class="col-2 text-end mx-0 @(Model.WynikiDodatnie[i].BledyWalidacji.Contains(true) ? "text-danger fw-bold" : "")">
 							@Model.CechyDodatnie[i].MaksPunktow
 						</div>
 						<div class="col-1 @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
@@ -273,25 +269,24 @@
 				</td>
 			</tr>
 }
-			@* TO-DO: Sumowanie (prawdopodobnie w JS) *@
 			<tr class="align-middle">
 				<th>
 					<div class="container row">
 						<div class="col-8 text-start">
 							Razem punkty dodatnie
 						</div>
-						<div class="col-1 text-end"> do </div>
-						<div class="col-2 text-end mx-0 ">
+						<div class="col-1 text-end @(Model.PrzekroczonoMaksPunktowDodatnich.Contains(true) ? "text-danger fw-bold" : "")"> do </div>
+						<div class="col-2 text-end mx-0 @(Model.PrzekroczonoMaksPunktowDodatnich.Contains(true) ? "text-danger fw-bold" : "")">
 							90
 						</div>
-						<div class="col-1"> pkt </div>
+						<div class="col-1 @(Model.PrzekroczonoMaksPunktowDodatnich.Contains(true) ? "text-danger fw-bold" : "")"> pkt </div>
 					</div>
 				</th>
 			@for (int i = 0; i < 4; ++i)
 			{
 				<td>
 					<input asp-for="@Model.RazemPunktyDodatnie[i]" readonly type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
+						class="form-control mx-auto my-1 text-center @(Model.PrzekroczonoMaksPunktowDodatnich[i] ? "border-danger alert-danger text-danger" : "")" />
 				</td>
 			}
 			</tr>

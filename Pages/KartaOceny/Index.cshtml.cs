@@ -62,6 +62,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public bool BlednaDataPrzesluchania = false;
         public bool BlednaGodzinaRozpoczeciaPrzesluchania = false;
         public bool KolekcjaJuzOceniona = false;
+        public bool[] PrzekroczonoMaksPunktowDodatnich = new bool[4];
 
         public int[] RazemPunktyDodatnie = new int[4];
         public int[] RazemPunktyUjemne = new int[4];
@@ -371,21 +372,22 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             for (int i = 0; i < 4; ++i)
             {
                 RazemPunktyDodatnie[i] = WynikiDodatnie.Sum(w => w.PrzyznanePunkty[i]);
+                PrzekroczonoMaksPunktowDodatnich[i] = RazemPunktyDodatnie[i] > 90;
                 RazemPunktyUjemne[i] = WynikiUjemne.Sum(w => w.PrzyznanePunkty[i]);
                 OcenaKoncowa[i] = RazemPunktyDodatnie[i] - RazemPunktyUjemne[i];
             }
             OcenaKolekcji = OcenaKoncowa.Sum();
 
-            if (bledneWyniki)
+            if (bledneWyniki || PrzekroczonoMaksPunktowDodatnich.Contains(true))
             {
-                return Page();
+                return PobierzCechyPotemReturnPage();
             }
             else
             {
                 await _context.SaveChangesAsync();
             }
 
-            return Page();
+            return PobierzCechyPotemReturnPage();
         }
 
         private bool WielkiTestNullow()
