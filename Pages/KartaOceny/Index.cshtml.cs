@@ -56,12 +56,12 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public bool BrakMiejscowosci { get; set; } = false;
 
         public bool BrakDanychHodowcy = false;
+        public bool[] BlednyNumerObraczkiRodowej = new bool[4];
 
 
         public async Task<IActionResult> OnGetAsync(
             int? idKonkursu = null, string? sygnumHodowcy = null)
         {
-            // WIELKI TEST NULLÓW
             if (WielkiTestNullow())
             {
                 return NotFound();
@@ -162,23 +162,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             if (WielkiTestNullow())
                 return NotFound();
 
-            if (Konkurs.Miejscowosc == null)
-            {
-                BrakMiejscowosci = true;
-            }
-            else
-            {
-                BrakMiejscowosci = false;
-            }
-
-            if (ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null)
-            {
-                BrakDanychHodowcy = true;
-            }
-            else
-            {
-                BrakDanychHodowcy = false;
-            }
+            BrakMiejscowosci = Konkurs.Miejscowosc == null ? true : false;
+            BrakDanychHodowcy = ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null ? true : false;
 
             if (BrakMiejscowosci || BrakDanychHodowcy)
             {
@@ -257,7 +242,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 // oraz czy Kolekcja nie zosta³a ju¿ oceniona
                 if (kolekcja != null)
                 {
-                    SprawdzNumeryObraczekRodowych(kolekcja);
+                    BlednyNumerObraczkiRodowej = SprawdzNumeryObraczekRodowych(kolekcja);
+
+                    for (int i = 0; i < 4; ++i)
+                    {
+                        if (BlednyNumerObraczkiRodowej[i])
+                        {
+                            return PobierzCechyPotemReturnPage();
+                        }
+                    }
 
                     if (_context.Wyniki.Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID).Any())
                     {
@@ -364,35 +357,16 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                     _context.Kolekcje == null || _context.Klatki == null || _context.Przesluchania == null ||
                     _context.CechySpiewuCOM == null || _context.Wyniki == null);
         }
-        private void SprawdzNumeryObraczekRodowych(Kolekcja kolekcjaBD)
+        private bool[] SprawdzNumeryObraczekRodowych(Kolekcja kolekcjaBD)
         {
-            // Klatka nr 1
-            if (kolekcjaBD.Klatki[0].NrObraczkiRodowej != NumeryObraczekRodowych[0])
+            bool[] rezultat = new bool[4];
+
+            for (int i = 0; i < 4; ++i)
             {
-                throw new Exception("Nr obr¹czki rodowej ptaka w Klatce nr 1 " +
-                                    "nie pokrywa siê z numerem w bazie danych.");
+                rezultat[i] = kolekcjaBD.Klatki[i].NrObraczkiRodowej != NumeryObraczekRodowych[i];
             }
 
-            // Klatka nr 2
-            if (kolekcjaBD.Klatki[1].NrObraczkiRodowej != NumeryObraczekRodowych[1])
-            {
-                throw new Exception("Nr obr¹czki rodowej ptaka w Klatce nr 2 " +
-                                    "nie pokrywa siê z numerem w bazie danych.");
-            }
-
-            // Klatka nr 3
-            if (kolekcjaBD.Klatki[2].NrObraczkiRodowej != NumeryObraczekRodowych[2])
-            {
-                throw new Exception("Nr obr¹czki rodowej ptaka w Klatce nr 3 " +
-                                    "nie pokrywa siê z numerem w bazie danych.");
-            }
-
-            // Klatka nr 4
-            if (kolekcjaBD.Klatki[3].NrObraczkiRodowej != NumeryObraczekRodowych[3])
-            {
-                throw new Exception("Nr obr¹czki rodowej ptaka w Klatce nr 4 " +
-                                    "nie pokrywa siê z numerem w bazie danych.");
-            }
+            return rezultat;
         }
 
         private Przesluchanie NowePrzesluchanie(Kolekcja kolekcja)

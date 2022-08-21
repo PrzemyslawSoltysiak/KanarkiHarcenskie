@@ -70,6 +70,18 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
+@{
+	for (int i = 0; i < 4; ++i)
+	{
+		if (Model.BlednyNumerObraczkiRodowej[i])
+		{
+			<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+				Numer obrączki rodowej ptaka w Klatce nr @i nie zgadza się z danymi zapisanymi w systemie.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		}
+	}
+}
 
 <div class="container border p-5">
 
@@ -128,26 +140,12 @@
 				<th class="text-start ps-4">
 					<label>Nr obrączki rodowej</label>
 				</th>
-				@* Klatka nr 1 *@
+@for (int i = 0; i < 4; ++i) {
 				<td>
-					<input asp-for="NumeryObraczekRodowych[0]" type="text" style="width: 6ch;" 
-						   class="form-control mx-auto my-2 text-center" />
-				</td>
-				@* Klatka nr 2 *@
-				<td>
-					<input asp-for="NumeryObraczekRodowych[1]" type="text" style="width: 6ch;" 
-						   class="form-control mx-auto my-2 text-center" />
-				</td>
-				@* Klatka nr 3 *@
-				<td>
-					<input asp-for="NumeryObraczekRodowych[2]" type="text" style="width: 6ch;" 
-						   class="form-control mx-auto my-2 text-center" />
-				</td>
-				@* Klatka nr 4 *@
-				<td>
-					<input asp-for="NumeryObraczekRodowych[3]" type="text" style="width: 6ch;" 
-						   class="form-control mx-auto my-2 text-center" />
-				</td>
+					<input asp-for="NumeryObraczekRodowych[i]" type="text" style="width: 6ch;" 
+						class="form-control mx-auto my-2 text-center @(Model.BlednyNumerObraczkiRodowej[i] ? "border-danger alger-danger" : "")" />
+				</td>			
+}
 
 				@* Sygnum Hodowcy *@
 				<th style="width: 40%;" class="text-start ps-2">
