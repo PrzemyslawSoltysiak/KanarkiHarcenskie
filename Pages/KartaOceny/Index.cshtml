@@ -242,9 +242,7 @@
 						<div class="col-2 text-end mx-0 @(Model.WynikiDodatnie[i].BledyWalidacji.Contains(true) ? "text-danger fw-bold" : "")">
 							@Model.CechyDodatnie[i].MaksPunktow
 						</div>
-						<div class="col-1 @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
-											Model.WynikiDodatnie[i].BledyWalidacji[2] || Model.WynikiDodatnie[i].BledyWalidacji[3] 
-							? "text-danger fw-bold" : "")"> pkt </div>
+						<div class="col-1 @(Model.WynikiDodatnie[i].BledyWalidacji.Contains(true) ? "text-danger fw-bold" : "")"> pkt </div>
 					</div>
 				</td>
 				<td>

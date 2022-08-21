@@ -176,13 +176,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             BrakDanychHodowcy = ImieNazwiskoHodowcy == null ? true : false;
             if (BrakMiejscowosci || BrakDanychHodowcy)
             {
-                return PobierzCechyPotemReturnPage();
+                PobierzCechySpiewu();
+                return Page();
             }
 
             NiepoprawnyFormatDanychHodowcy = !Regex.IsMatch(ImieNazwiskoHodowcy, @"^[A-Z][a-z]+\s[A-Z][a-z]+$");
             if (NiepoprawnyFormatDanychHodowcy)
             {
-                return PobierzCechyPotemReturnPage();
+                PobierzCechySpiewu();
+                return Page();
             }
 
             bool nowyKonkursLubHodowca = false;
@@ -215,7 +217,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             NieZnalezionoHodowcy = Hodowca.SygnumHodowcy != null && hodowca == null;
             if (NieZnalezionoHodowcy)
             {
-                return PobierzCechyPotemReturnPage();
+                PobierzCechySpiewu();
+                return Page();
             }
 
             string imieHodowcy = ImieNazwiskoHodowcy.Split(' ')[0];
@@ -227,7 +230,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 if (hodowca.Imie != imieHodowcy || hodowca.Nazwisko != nazwiskoHodowcy)
                 {
                     BledneImieNazwisko = true;
-                    return PobierzCechyPotemReturnPage();
+                    PobierzCechySpiewu();
+                    return Page();
                 }
                 else
                 {
@@ -268,14 +272,16 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                     {
                         if (BlednyNumerObraczkiRodowej[i])
                         {
-                            return PobierzCechyPotemReturnPage();
+                            PobierzCechySpiewu();
+                            return Page();
                         }
                     }
 
                     if (_context.Wyniki.Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID).Any())
                     {
                         KolekcjaJuzOceniona = true;
-                        return PobierzCechyPotemReturnPage();
+                        PobierzCechySpiewu();
+                        return Page();
                     }
                 }
             }
@@ -313,7 +319,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 if (BlednaDataPrzesluchania || BlednaGodzinaRozpoczeciaPrzesluchania)
                 {
-                    return PobierzCechyPotemReturnPage();
+                    PobierzCechySpiewu();
+                    return Page();
                 }
 
                 if (kolekcja.Przesluchanie.Data != null && Przesluchanie.GodzinaDo != kolekcja.Przesluchanie.GodzinaDo)
@@ -329,8 +336,10 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             }
 
             // pobierz informacje o cechach œpiewu
-            CechyDodatnie = await _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Dodatnie).ToListAsync();
-            CechyUjemne = await _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne).ToListAsync();
+            CechyDodatnie = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Dodatnie)
+                .OrderByDescending(c => c.MaksPunktow).ToList();
+            CechyUjemne = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
+                .OrderByDescending(c => c.MaksPunktow).ToList();
 
             // sprawdŸ, czy zosta³y wstawione wyniki,
             // jeœli tak, dodaj je do bazy danych
@@ -380,14 +389,16 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
             if (bledneWyniki || PrzekroczonoMaksPunktowDodatnich.Contains(true))
             {
-                return PobierzCechyPotemReturnPage();
+                PobierzCechySpiewu();
+                return Page();
             }
             else
             {
                 await _context.SaveChangesAsync();
             }
 
-            return PobierzCechyPotemReturnPage();
+            PobierzCechySpiewu();
+            return Page();
         }
 
         private bool WielkiTestNullow()
@@ -421,14 +432,17 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             };
         }
 
-        private IActionResult PobierzCechyPotemReturnPage()
-        {
-            // pobierz informacje o cechach œpiewu
-            CechyDodatnie = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Dodatnie)
-                .OrderByDescending(c => c.MaksPunktow).ToList();
-            CechyUjemne = _context.CechySpiewuCOM.Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
-                .OrderByDescending(c => c.MaksPunktow).ToList();
-            return Page();
+        private async void PobierzCechySpiewu()
+		{
+            CechyDodatnie = await _context.CechySpiewuCOM
+                .Where(c => c.WagaPunktow == WagaPunktow.Dodatnie)
+                .OrderByDescending(c => c.MaksPunktow)
+                .ToListAsync();
+
+            CechyUjemne = await _context.CechySpiewuCOM
+                .Where(c => c.WagaPunktow == WagaPunktow.Ujemne)
+                .OrderByDescending(c => c.MaksPunktow)
+                .ToListAsync();
         }
     }
 
