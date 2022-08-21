@@ -50,6 +50,27 @@
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
+
+@if (Model.BrakMiejscowosci) {
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+		Należy podać Miejscowość.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+@if (Model.BrakDanychHodowcy) {
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+		Należy podać dane Hodowcy (imię i nazwisko lub Sygnum, jeśli został wcześniej zarejestrowany).
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+@if (Model.BledneImieNazwisko) {
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+		Hodowca o podanym Sygnum jest zarejestrowany w systemie, jednak jego Imię lub Nazwisko
+		nie zgadza się z danymi wprowadzonymi w formularzu.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
 <div class="container border p-5">
 
 	@* NAGŁÓWEK *@
@@ -94,24 +115,10 @@
 				Hodowca (imię i nazwisko):
 			</label>
 			<div class="col">
-				<input asp-for="ImieNazwiskoHodowcy" class="form-control @(Model.BledneImieNazwisko ? "border-danger alger-danger" : "")" />
+				<input asp-for="ImieNazwiskoHodowcy" class="form-control 
+					@(Model.BledneImieNazwisko || Model.BrakDanychHodowcy ? "border-danger alger-danger" : "")" />
 			</div>
 		</div>
-	@if (Model.BrakMiejscowosci) {
-	<div class="row mb-4">
-		<span class="text-danger">
-			Należy podać Miejscowość.
-		</span>
-	</div>
-	}
-	@if (Model.BledneImieNazwisko) {
-		<div class="row mb-4">
-			<span class="text-danger">
-				Hodowca o podanym Sygnum jest zarejestrowany w systemie, jednak jego Imię lub Nazwisko
-				nie zgadza się z danymi wprowadzonymi w formularzu.
-			</span>
-		</div>
-	}
 
 		@* TABELA *@
 		<table class="table table-bordered text-center">
@@ -148,7 +155,8 @@
 						<label asp-for="Hodowca.SygnumHodowcy" class="col col-form-label">
 							Sygnum hodowcy:
 						</label>
-						<input asp-for="Hodowca.SygnumHodowcy" class="col form-control me-4" />
+						<input asp-for="Hodowca.SygnumHodowcy" class="col form-control me-4 
+							@(Model.BrakDanychHodowcy ? "border-danger alger-danger" : "")" />
 					</div>
 					@*<div class="container row mx-auto">
 						<span asp-validation-for="Hodowca.SygnumHodowcy" class="text-danger fw-normal"></span>

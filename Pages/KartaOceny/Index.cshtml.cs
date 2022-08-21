@@ -55,6 +55,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public bool BledneImieNazwisko { get; set; } = false;
         public bool BrakMiejscowosci { get; set; } = false;
 
+        public bool BrakDanychHodowcy = false;
+
 
         public async Task<IActionResult> OnGetAsync(
             int? idKonkursu = null, string? sygnumHodowcy = null)
@@ -157,14 +159,12 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // WIELKI TEST NULLÓW
             if (WielkiTestNullow())
                 return NotFound();
 
             if (Konkurs.Miejscowosc == null)
             {
                 BrakMiejscowosci = true;
-                return PobierzCechyPotemReturnPage();
             }
             else
             {
@@ -172,6 +172,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             }
 
             if (ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null)
+            {
+                BrakDanychHodowcy = true;
+            }
+            else
+            {
+                BrakDanychHodowcy = false;
+            }
+
+            if (BrakMiejscowosci || BrakDanychHodowcy)
             {
                 return PobierzCechyPotemReturnPage();
             }
