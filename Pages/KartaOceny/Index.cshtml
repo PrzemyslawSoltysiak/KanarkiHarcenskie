@@ -287,22 +287,13 @@
 						<div class="col-1"> pkt </div>
 					</div>
 				</th>
+			@for (int i = 0; i < 4; ++i)
+			{
 				<td>
-					<input type="text" style="width: 6ch;" 
+					<input asp-for="@Model.RazemPunktyDodatnie[i]" readonly type="text" style="width: 6ch;" 
 					       class="form-control mx-auto my-1 text-center" />
 				</td>
-				<td>
-					<input type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
-				</td>
-				<td>
-					<input type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
-				</td>
-				<td>
-					<input type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
-				</td>
+			}
 			</tr>
 
 			@* PUNKTY UJEMNE *@
@@ -353,22 +344,13 @@
 						</div>
 					</div>
 				</th>
+			@for (int i = 0; i < 4; ++i)
+			{
 				<td>
-					<input type="text" style="width: 6ch;" 
+					<input asp-for="@Model.RazemPunktyUjemne[i]" readonly type="text" style="width: 6ch;" 
 					       class="form-control mx-auto my-1 text-center" />
 				</td>
-				<td>
-					<input type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
-				</td>
-				<td>
-					<input type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
-				</td>
-				<td>
-					<input type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
-				</td>
+			}
 			</tr>
 
 			@* OCENA OGÓLNA *@
@@ -405,7 +387,8 @@
 						<div class="container col-7 text-end pe-5">
 							<input type="submit" value="Wyślij" class="btn btn-primary" />
 						</div>
-						<input class="form-control col" type="text" />
+						<input asp-for="@Model.OcenaKolekcji" readonly type="text" 
+					           class="form-control col mx-auto my-1 text-center" />
 						<div class="col-1 mt-2"> pkt </div>
 					</div>
 				</td>
@@ -439,18 +422,13 @@
 						</div>
 					</div>
 				</th>
+			@for (int i = 0; i < 4; ++i)
+			{
 				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+					<input asp-for="@Model.OcenaKoncowa[i]" readonly type="text" style="width: 6ch;" 
+					       class="form-control mx-auto my-1 text-center" />
 				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
+			}
 			</tr>
 		</table>
 	</form>

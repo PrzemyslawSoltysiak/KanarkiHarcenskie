@@ -63,6 +63,10 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public bool BlednaGodzinaRozpoczeciaPrzesluchania = false;
         public bool KolekcjaJuzOceniona = false;
 
+        public int[] RazemPunktyDodatnie = new int[4];
+        public int[] RazemPunktyUjemne = new int[4];
+        public int[] OcenaKoncowa = new int[4];
+        public int OcenaKolekcji;
 
         public async Task<IActionResult> OnGetAsync(
             int? idKonkursu = null, string? sygnumHodowcy = null)
@@ -363,6 +367,14 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                     bledneWyniki = true;
                 }
             }
+
+            for (int i = 0; i < 4; ++i)
+            {
+                RazemPunktyDodatnie[i] = WynikiDodatnie.Sum(w => w.PrzyznanePunkty[i]);
+                RazemPunktyUjemne[i] = WynikiUjemne.Sum(w => w.PrzyznanePunkty[i]);
+                OcenaKoncowa[i] = RazemPunktyDodatnie[i] - RazemPunktyUjemne[i];
+            }
+            OcenaKolekcji = OcenaKoncowa.Sum();
 
             if (bledneWyniki)
             {
