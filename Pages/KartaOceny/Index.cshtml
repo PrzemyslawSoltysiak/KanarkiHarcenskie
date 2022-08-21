@@ -8,43 +8,51 @@
 	<h5 class="mb-3">Informacje</h5>
 	<h6>Parametry URL</h6>
 	<p>
-		Strona Karty Oceny PFO pozwala na wskazanie Konkursu oraz Hodowcy zarejestrowanych w Bazie Danych,
-		poprzez podanie ich identyfikatorów jako parametrów w adresie URL: idKonkursu oraz sygnumHodowcy
-		(przykład końcówki adresu URL: <strong>?idKonkursu=1&sygnumHodowcy=P172</strong>).
-		Automatycznie uzupełnione zostaną wtedy pola: Ranga konkursu, Miejscowość, Data, Hodowca (imię i nazwisko), Sygnum hodowcy;
-		a także, jeśli Hodowca zarejestrował już Kolekcję na dany Konkurs, Numery obrączek rodowych ptaków w odpowiednich Klatkach.
-		Ponadto, jeśli dla danej Kolekcji został już ustalony termin Przesłuchania, również pojawi się on na Karcie Oceny
-		(pola Data przesłuchania, Godzina (od), (godzina) Do).
+		Strona Karty Oceny PFO pozwala na wskazanie Konkursu oraz Hodowcy zarejestrowanych w systemie poprzez podanie ich identyfikatorów 
+		jako parametrów w adresie URL: <var>idKonkursu</var> oraz <var>sygnumHodowcy</var> (przykład końcówki adresu URL: 
+		<strong>?idKonkursu=1&sygnumHodowcy=P172</strong>). Automatycznie uzupełnione zostaną wtedy pola: <var>Ranga konkursu, Miejscowość, Data, 
+		Hodowca (imię i nazwisko), Sygnum hodowcy</var>; a także, jeśli Hodowca zarejestrował już Kolekcję na dany Konkurs, <var>Numery obrączek rodowych</var> 
+		ptaków w odpowiednich Klatkach. Ponadto, jeśli dla danej Kolekcji został już ustalony termin Przesłuchania, również pojawi się on na Karcie Oceny
+		(pola <var>Data przesłuchania, Godzina (od), (godzina) do</var>).
 	</p>
 	<h6>Rejestracja poprzez Kartę Oceny</h6>
 	<p>
-		Formularz pozwala również na zarejestrowanie nowego Konkursu, Hodowcy (wystarczy podać jego imię i nazwisko, 
-		Sygnum Hodowcy zostanie wygenerowane automatycznie), Kolekcji oraz Przesłuchania w momencie wysłania formularza - odpowiednie wiersze
-		w tabelach Bazy Danych zostaną utworzone automatycznie.
+		Formularz pozwala również na zarejestrowanie nowego Konkursu, Hodowcy (wystarczy podać jego <var>Imię i Nazwisko, 
+		Sygnum Hodowcy</var> zostanie wygenerowane automatycznie), Kolekcji oraz Przesłuchania w momencie wysłania formularza.
 	</p>
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
 <div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
 	<h5 class="mb-3">Ograniczenia</h5>
-	<h6>Wprowadzenie Wyników do Bazy Danych nie powiedzie się, gdy:</h6>
+	<h6>Wprowadzenie Wyników nie powiedzie się, gdy:</h6>
 	<ul>
 		<li>
-			uzupełnione zostanie pole <var>Sygnum hodowcy</var>, jednak zawartość pola <var>Hodowca (imię i nazwisko)</var>
-			nie będzie pokrywała się z <var>Imieniem</var> i <var>Nazwiskiem</var> Hodowcy zarejestrowanego w Bazie Danych
-			pod danym <var>Sygnum</var>;
+			nie zostało uzupełnione pole <var>Miejscowość</var>,
 		</li>
 		<li>
-			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs, i <var>Numery obrączek rodowych</var>
-			nie pokrywają się z tymi zapisanymi dla tej Kolekcji w Bazie Danych;
+			nie zostało uzupełnione pole <var>Hodowca (imię i nazwisko)</var>, lub format danych do niego wprowadzonych nie pokrywa się 
+			z oczekiwanym (wyrażenie regularne: <span class="d-inline-block">"^[A-Z][a-z]+\s[A-Z][a-z]+$")</span>;
 		</li>
 		<li>
-			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs i zostało jej przypisane Przesłuchanie,
-			a podane <var>Data</var> lub <var>Godzina (od)</var> nie pokrywają się z tymi zapisanymi w Bazie Danych
-			(<var>(godzina) Do</var> może zostać zmieniona poprzez Kartę Oceny);
+			uzupełnione zostało pole <var>Sygnum hodowcy</var>, jednak w systemie nie został znaleziony Hodowca o podanym <var>Sygnum</var>, 
+			lub zawartość pola <var>Hodowca (imię i nazwisko)</var> nie pokrywa się z <var>Imieniem</var> i <var>Nazwiskiem</var> 
+			Hodowcy zarejestrowanego w systemie pod danym <var>Sygnum</var>;
 		</li>
 		<li>
-			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs, i została już ona oceniona (posiada choć jeden Wynik).
+			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs, a podane <var>Numery obrączek rodowych</var> nie pokrywają się 
+			z danymi zapisanymi w systemie;
+		</li>
+		<li>
+			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs i zostało jej przypisane Przesłuchanie, a podane <var>Data</var> 
+			lub <var>Godzina (od)</var> nie pokrywają się z danymi zapisanymi w systemie (<var>(godzina) Do</var> może zostać zmieniona 
+			poprzez Kartę Oceny);
+		</li>
+		<li>
+			wskazany Hodowca zarejestrował już Kolekcję na dany Konkurs, i została już ona oceniona (w systemie istnieje choć jeden Wynik),
+		</li>
+		<li>
+			<var>Liczba przyznanych punktów</var> za którąkolwiek z Cech Śpiewu przekracza określoną dla niej <var>Maksymanlną liczbę punktów</var>.
 		</li>
 	</ul>
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -81,10 +89,10 @@
 	{
 		if (Model.BlednyNumerObraczkiRodowej[i])
 		{
-			<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
-				<var>Numer obrączki rodowej</var> ptaka w Klatce nr @i nie zgadza się z danymi zapisanymi w systemie.
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+								<var>Numer obrączki rodowej</var> ptaka w Klatce nr @i nie zgadza się z danymi zapisanymi w systemie.
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
 		}
 	}
 }
