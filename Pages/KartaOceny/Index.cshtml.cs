@@ -313,6 +313,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     WynikiDodatnie[i].DodajKolekcje(kolekcja);
                     await _context.AddRangeAsync(WynikiDodatnie[i][0], WynikiDodatnie[i][1], WynikiDodatnie[i][2], WynikiDodatnie[i][3]);
+                    await _context.SaveChangesAsync();
                 }
                 else
                 {
@@ -326,6 +327,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     WynikiUjemne[i].DodajKolekcje(kolekcja);
                     await _context.AddRangeAsync(WynikiUjemne[i][0], WynikiUjemne[i][1], WynikiUjemne[i][2], WynikiUjemne[i][3]);
+                    await _context.SaveChangesAsync();
                 }
                 else
                 {
