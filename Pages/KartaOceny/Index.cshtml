@@ -106,6 +106,13 @@
 	</div>
 }
 
+@if (Model.OcenianieZakonczoneSukcesem) {
+	<div class="alert alert-success alert-dismissible fade show py-4 px-5" role="alert">
+		Wprowadzone <a asp-page="../Wyniki/Index">Wyniki</a> zostały zapisane w systemie. Ocena Kolekcji: @(Model.OcenaKolekcji) pkt.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
 <div class="container border p-5">
 
 	@* NAGŁÓWEK *@

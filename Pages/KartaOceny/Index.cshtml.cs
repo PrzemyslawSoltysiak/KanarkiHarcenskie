@@ -63,6 +63,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public bool BlednaGodzinaRozpoczeciaPrzesluchania = false;
         public bool KolekcjaJuzOceniona = false;
         public bool[] PrzekroczonoMaksPunktowDodatnich = new bool[4];
+        public bool OcenianieZakonczoneSukcesem = false;
 
         public int[] RazemPunktyDodatnie = new int[4];
         public int[] RazemPunktyUjemne = new int[4];
@@ -401,6 +402,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             else
             {
                 await _context.SaveChangesAsync();
+                OcenianieZakonczoneSukcesem = true;
             }
 
             PobierzCechySpiewu();
