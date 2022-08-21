@@ -24,6 +24,10 @@ namespace KanarkiHercenskie.Pages.Konkursy
         public Konkurs WybranyKonkurs = null;
         public IList<Wynik> WynikiKonkursu = null;
 
+        public string SortujWedlugCIH = "CIH_rosnaco";
+        public string SortujWedlugPrzesluchan = "NajwczesniejszePrzesluchanie";
+        public string SortujWedlugWynikow = "NajlepszyWynik";
+
         public async Task OnGetAsync(int? id, string? sortuj)
         {
             if (_context.Konkursy != null)
@@ -54,19 +58,28 @@ namespace KanarkiHercenskie.Pages.Konkursy
                         {
                             switch (sortuj)
                             {
-                                case "CIH":
+                                case "CIH_rosnaco":
+                                    SortujWedlugCIH = "CIH_malejaco";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
                                         .OrderBy(k => k.SygnumWlasciciela).ToList();
                                     break;
+                                case "CIH_malejaco":
+                                    SortujWedlugCIH = "CIH_rosnaco";
+                                    WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
+                                        .OrderByDescending(k => k.SygnumWlasciciela).ToList();
+                                    break;
                                 case "NajwczesniejszePrzesluchanie":
+                                    SortujWedlugPrzesluchan = "NajpozniejszePrzesluchanie";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
                                         .OrderBy(k => k.Przesluchanie.Data).ToList();
                                     break;
                                 case "NajpozniejszePrzesluchanie":
+                                    SortujWedlugPrzesluchan = "NajwczesniejszePrzesluchanie";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
                                         .OrderByDescending(k => k.Przesluchanie.Data).ToList();
                                     break;
                                 case "NajlepszyWynik":
+                                    SortujWedlugWynikow = "NajgorszyWynik";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
                                         .OrderByDescending(k => _context.Wyniki
                                             .Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID)
@@ -74,6 +87,7 @@ namespace KanarkiHercenskie.Pages.Konkursy
                                         .ToList();
                                     break;
                                 case "NajgorszyWynik":
+                                    SortujWedlugWynikow = "NajlepszyWynik";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
                                         .OrderBy(k => _context.Wyniki
                                             .Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID)

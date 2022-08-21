@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                     <th>
-                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="CIH">
+                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="@Model.SortujWedlugCIH">
                             Właściciel
                         </a>
                     </th>
@@ -77,12 +77,12 @@
                     <th style="width: 12ch; min-width: 4ch;">3</th>
                     <th style="width: 12ch; min-width: 4ch;">4</th>
                     <th style="width: 36ch;">
-                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="NajwczesniejszePrzesluchanie">
+                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="@Model.SortujWedlugPrzesluchan">
                             Przesłuchanie
                         </a>
                     </th>
                     <th style="width: 20ch;">
-                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="NajlepszyWynik">
+                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="@Model.SortujWedlugWynikow">
                             Ocena Kolekcji
                         </a>
                     </th>
