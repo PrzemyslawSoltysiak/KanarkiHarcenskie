@@ -19,13 +19,17 @@ namespace KanarkiHercenskie.Pages.Kolekcje
             _context = context;
         }
 
-        public IActionResult OnGet(int? idKonkursu = null, int? sygnumWlasciciela = null)
+        public IActionResult OnGet(int? idKonkursu = null, string? sygnumWlasciciela = null)
         {
             GenerujListy(_context, idKonkursu, sygnumWlasciciela);
 
             if (idKonkursu != null)
             {
                 PrzekierowanoZListyKonkursow = true;
+            }
+            if (sygnumWlasciciela != null)
+            {
+                PrzekierowanoZListyHodowcow = true;
             }
 
             return Page();
@@ -37,6 +41,7 @@ namespace KanarkiHercenskie.Pages.Kolekcje
 
         public bool KolekcjaJuzIstnieje = false;
         public bool PrzekierowanoZListyKonkursow = false;
+        public bool PrzekierowanoZListyHodowcow = false;
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

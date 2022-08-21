@@ -25,7 +25,9 @@ namespace KanarkiHercenskie.Pages.Hodowcy
         {
             if (_context.Hodowcy != null)
             {
-                Hodowcy = await _context.Hodowcy.AsNoTracking().ToListAsync();
+                Hodowcy = await _context.Hodowcy
+                    .Include(h => h.ZgloszoneKolekcje)
+                    .AsNoTracking().ToListAsync();
             }
         }
     }

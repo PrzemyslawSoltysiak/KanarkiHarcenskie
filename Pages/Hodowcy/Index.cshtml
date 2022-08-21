@@ -10,7 +10,7 @@
 <p>
     <a asp-page="Create">Dodaj Hodowcę</a>
 </p>
-<table class="table text-center">
+<table class="table table-hover text-center">
     <thead>
         <tr>
             <th style="width: 32ch;">
@@ -22,7 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Hodowcy[0].Nazwisko)
             </th>
-            <th style="width: 16ch;"></th>
+            <th style="width: 32ch;"></th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +38,7 @@
                 @Html.DisplayFor(modelItem => item.Nazwisko)
             </td>
             <td>
+                <a asp-page="../Kolekcje/Create" asp-route-sygnumWlasciciela="@item.SygnumHodowcy">Zarejestruj Kolekcję</a> |
                 <a asp-page="./Edit" asp-route-id="@item.SygnumHodowcy">Edytuj</a> |
                 @* <a asp-page="./Details" asp-route-id="@item.SygnumHodowcy">Details</a> | *@
                 <a asp-page="./Delete" asp-route-id="@item.SygnumHodowcy">Usuń</a>
