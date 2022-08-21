@@ -58,6 +58,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public bool[] BlednyNumerObraczkiRodowej = new bool[4];
         public bool BlednaDataPrzesluchania = false;
         public bool BlednaGodzinaRozpoczeciaPrzesluchania = false;
+        public bool KolekcjaJuzOceniona = false;
 
 
         public async Task<IActionResult> OnGetAsync(
@@ -213,7 +214,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 {
                     BledneImieNazwisko = false;
                 }
-
             }
             // jeœli Hodowca nie istnieje, utwórz nowego Hodowcê i dodaj go do bazy danych
             else
@@ -255,7 +255,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                     if (_context.Wyniki.Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID).Any())
                     {
-                        throw new Exception("W BD istniej¹ ju¿ Wyniki przypisane do Klatek wchodz¹cych w sk³ad wskazanej Kolekcji.");
+                        KolekcjaJuzOceniona = true;
+                        return PobierzCechyPotemReturnPage();
                     }
                 }
             }
@@ -331,6 +332,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                     bledneWyniki = true;
                 }
             }
+
             for (int i = 0; i < CechyUjemne.Count(); ++i)
             {
                 WynikiUjemne[i].NazwaCechySpiewu = CechyUjemne[i].Nazwa;

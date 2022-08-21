@@ -88,6 +88,12 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
+@if (Model.KolekcjaJuzOceniona) {
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+		Kolekcja została już oceniona (<a asp-page="../Wyniki/Index">Wyniki</a>).
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
 
 <div class="container border p-5">
 
