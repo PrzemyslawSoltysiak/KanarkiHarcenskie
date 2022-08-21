@@ -321,12 +321,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 if (!WynikiDodatnie[i].Waliduj(_context))
                 {
                     WynikiDodatnie[i].DodajKolekcje(kolekcja);
-                    await _context.AddRangeAsync(WynikiDodatnie[i][0], WynikiDodatnie[i][1], WynikiDodatnie[i][2], WynikiDodatnie[i][3]);
-                    await _context.SaveChangesAsync();
+                    for (int j = 0; j < 4; ++j)
+                    {
+                        _context.Add(WynikiDodatnie[i][j]);
+                    }
                 }
                 else
                 {
                     bledneWyniki = true;
+                    break;
                 }
             }
             for (int i = 0; i < CechyUjemne.Count(); ++i)
@@ -335,12 +338,15 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 if (!WynikiUjemne[i].Waliduj(_context))
                 {
                     WynikiUjemne[i].DodajKolekcje(kolekcja);
-                    await _context.AddRangeAsync(WynikiUjemne[i][0], WynikiUjemne[i][1], WynikiUjemne[i][2], WynikiUjemne[i][3]);
-                    await _context.SaveChangesAsync();
+                    for (int j = 0; j < 4; ++j)
+                    {
+                        _context.Add(WynikiUjemne[i][j]);
+                    }
                 }
                 else
                 {
                     bledneWyniki = true;
+                    break;
                 }
             }
 
@@ -352,8 +358,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             {
                 await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
 
             return Page();
         }
