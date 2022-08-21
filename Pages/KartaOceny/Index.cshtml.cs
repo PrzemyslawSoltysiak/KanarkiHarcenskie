@@ -207,6 +207,12 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             var hodowca = await _context.Hodowcy
                 .Where(h => h.SygnumHodowcy == Hodowca.SygnumHodowcy).FirstOrDefaultAsync();
 
+            NieZnalezionoHodowcy = Hodowca.SygnumHodowcy != null && hodowca == null;
+            if (NieZnalezionoHodowcy)
+            {
+                return PobierzCechyPotemReturnPage();
+            }
+
             string imieHodowcy = ImieNazwiskoHodowcy.Split(' ')[0];
             string nazwiskoHodowcy = ImieNazwiskoHodowcy.Split(' ')[1];
 
