@@ -52,11 +52,12 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public WierszWynikow[] WynikiUjemne { get; set; }
 
 
-        public bool BledneImieNazwisko { get; set; } = false;
-        public bool BrakMiejscowosci { get; set; } = false;
-
+        public bool BledneImieNazwisko = false;
+        public bool BrakMiejscowosci = false;
         public bool BrakDanychHodowcy = false;
         public bool[] BlednyNumerObraczkiRodowej = new bool[4];
+        public bool BlednaDataPrzesluchania = false;
+        public bool BlednaGodzinaRozpoczeciaPrzesluchania = false;
 
 
         public async Task<IActionResult> OnGetAsync(
@@ -282,12 +283,18 @@ namespace KanarkiHercenskie.Pages.KartaOceny
             // jeœli nie, utwórz nowe Przes³uchanie
             if (kolekcja.Przesluchanie != null)
             {
-                if ((kolekcja.Przesluchanie.Data != null && Przesluchanie.Data != kolekcja.Przesluchanie.Data) ||
-                    (kolekcja.Przesluchanie.Data != null && Przesluchanie.GodzinaOd != kolekcja.Przesluchanie.GodzinaOd))
+                BlednaDataPrzesluchania = kolekcja.Przesluchanie.Data != null && 
+                                          Przesluchanie.Data != kolekcja.Przesluchanie.Data 
+                    ? true : false;
+
+                BlednaGodzinaRozpoczeciaPrzesluchania = kolekcja.Przesluchanie.GodzinaOd != null && 
+                                                        Przesluchanie.GodzinaOd != kolekcja.Przesluchanie.GodzinaOd
+                    ? true : false;
+
+                if (BlednaDataPrzesluchania || BlednaGodzinaRozpoczeciaPrzesluchania)
                 {
-                    throw new Exception("Data lub Godzina Od Przes³uchania nie pokrywaj¹ siê z danymi w BD.");
+                    return PobierzCechyPotemReturnPage();
                 }
-                    
 
                 if (kolekcja.Przesluchanie.Data != null && Przesluchanie.GodzinaDo != kolekcja.Przesluchanie.GodzinaDo)
                     kolekcja.Przesluchanie.GodzinaDo = Przesluchanie.GodzinaDo;

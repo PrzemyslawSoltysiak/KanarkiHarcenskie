@@ -53,20 +53,20 @@
 
 @if (Model.BrakMiejscowosci) {
 	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
-		Należy podać Miejscowość.
+		Należy podać <var>Miejscowość</var>.
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
 @if (Model.BrakDanychHodowcy) {
 	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
-		Należy podać dane Hodowcy (imię i nazwisko lub Sygnum, jeśli został wcześniej zarejestrowany).
+		Należy podać dane Hodowcy (<var>imię i nazwisko</var> lub <var>Sygnum</var>, jeśli został wcześniej zarejestrowany).
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
 @if (Model.BledneImieNazwisko) {
 	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
-		Hodowca o podanym Sygnum jest zarejestrowany w systemie, jednak jego Imię lub Nazwisko
-		nie zgadza się z danymi wprowadzonymi w formularzu.
+		Hodowca o podanym <var>Sygnum</var> jest zarejestrowany w systemie, jednak jego <var>Imię</var> lub <var>Nazwisko</var>
+		nie zgadzają się z danymi wprowadzonymi w formularzu.
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
@@ -76,11 +76,17 @@
 		if (Model.BlednyNumerObraczkiRodowej[i])
 		{
 			<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
-				Numer obrączki rodowej ptaka w Klatce nr @i nie zgadza się z danymi zapisanymi w systemie.
+				<var>Numer obrączki rodowej</var> ptaka w Klatce nr @i nie zgadza się z danymi zapisanymi w systemie.
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		}
 	}
+}
+@if (Model.BlednaDataPrzesluchania || Model.BlednaGodzinaRozpoczeciaPrzesluchania) {
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+		<var>Data</var> lub <var>Godzina rozpoczęcia</var> Przesłuchania nie zgadzają się z danymi zapisanymi w systemie.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
 }
 
 <div class="container border p-5">
@@ -180,14 +186,16 @@
 							<label asp-for="Przesluchanie.Data" class="col col-form-label">
 								Data przesłuchania: 
 							</label>
-							<input asp-for="Przesluchanie.Data" style="width: auto;" class="col-auto form-control" />
+							<input asp-for="Przesluchanie.Data" style="width: auto;" class="col-auto form-control
+								@(Model.BlednaDataPrzesluchania ? "border-danger alger-danger" : "")" />
 						</div>
 						<div class="container row">
 							@* Godzina Od *@
 							<label asp-for="Przesluchanie.GodzinaOd" class="col col-form-label text-start">
 								Godzina: 
 							</label>
-							<input asp-for="Przesluchanie.GodzinaOd" style="width: auto;" class="col-auto form-control" />
+							<input asp-for="Przesluchanie.GodzinaOd" style="width: auto;" class="col-auto form-control
+								@(Model.BlednaGodzinaRozpoczeciaPrzesluchania ? "border-danger alger-danger" : "")" />
 							@* Godzina Do *@
 							<label asp-for="Przesluchanie.GodzinaDo" class="col col-form-label">
 								do 
