@@ -26,7 +26,7 @@
                 <div class="row text-center mt-2">
 @for (int i = 0; i < 4; ++i) {
                     <div class="col">
-                        <label class="form-label">1</label>
+                        <label class="form-label">@(i + 1)</label>
                         <input asp-for="Kolekcja.Klatki[i].NrObraczkiRodowej" type="text" class="form-control text-center" />
                     </div>
 }
