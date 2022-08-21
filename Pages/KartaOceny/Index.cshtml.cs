@@ -69,6 +69,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public int[] OcenaKoncowa = new int[4];
         public int OcenaKolekcji;
 
+        public string SygnumHodowcy { get; set; }
+
         public async Task<IActionResult> OnGetAsync(
             int? idKonkursu = null, string? sygnumHodowcy = null)
         {
@@ -123,6 +125,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
 
                 Hodowca = (await _context.Hodowcy.FindAsync(sygnumHodowcy))!;
                 ImieNazwiskoHodowcy = Hodowca.Imie + " " + Hodowca.Nazwisko;
+                SygnumHodowcy = Hodowca.SygnumHodowcy;
             }
             // jeœli nie wskazano Hodowcy, to utwórz nowego
             else
@@ -236,6 +239,7 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 else
                 {
                     BledneImieNazwisko = false;
+                    SygnumHodowcy = hodowca.SygnumHodowcy;
                 }
             }
             // jeœli Hodowca nie istnieje, utwórz nowego Hodowcê i dodaj go do bazy danych
@@ -251,6 +255,8 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 };
                 _context.Hodowcy.Add(hodowca);
                 await _context.SaveChangesAsync();
+
+                SygnumHodowcy = hodowca.SygnumHodowcy;
             }
 
             // jeœli przez formularz nie zarejestrowano Konkursu ani Hodowcy,

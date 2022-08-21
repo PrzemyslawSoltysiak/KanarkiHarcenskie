@@ -84,16 +84,13 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
-@{
-	for (int i = 0; i < 4; ++i)
+@for (int i = 0; i < 4; ++i) {
+	if (Model.BlednyNumerObraczkiRodowej[i])
 	{
-		if (Model.BlednyNumerObraczkiRodowej[i])
-		{
 	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
-								<var>Numer obrączki rodowej</var> ptaka w Klatce nr @i nie zgadza się z danymi zapisanymi w systemie.
-								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		<var>Numer obrączki rodowej</var> ptaka w Klatce nr @(i + 1) nie zgadza się z danymi zapisanymi w systemie.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
-		}
 	}
 }
 @if (Model.BlednaDataPrzesluchania || Model.BlednaGodzinaRozpoczeciaPrzesluchania) {
@@ -180,7 +177,8 @@
 							Sygnum hodowcy:
 						</label>
 						<input asp-for="Hodowca.SygnumHodowcy" class="col form-control me-4 
-							@(Model.BrakDanychHodowcy || Model.NieZnalezionoHodowcy ? "border-danger alger-danger" : "")" />
+							@(Model.BrakDanychHodowcy || Model.NieZnalezionoHodowcy ? "border-danger alger-danger" : "")" 
+							value="@(Model.SygnumHodowcy != null ? Model.SygnumHodowcy : "")" />
 					</div>
 					@*<div class="container row mx-auto">
 						<span asp-validation-for="Hodowca.SygnumHodowcy" class="text-danger fw-normal"></span>
