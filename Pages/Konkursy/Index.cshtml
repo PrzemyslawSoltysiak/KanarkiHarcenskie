@@ -147,9 +147,8 @@
                                     .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow));
 
                                 int ranking = Model.WybranyKonkurs.ZgloszoneKolekcje.Count() - Model.WybranyKonkurs.ZgloszoneKolekcje
-                                    .Where(k => Model.WynikiKonkursu.Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID)
-                                                    .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow)) < ocenaKolekcji)
-                                    .Count();
+                                    .Where(k => Model.WynikiKonkursu.Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID && w.PrzyznanoDla.ID_Kolekcji != kolekcja.ID)
+                                    .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow)) <= ocenaKolekcji).Count() + 1;
 
                                 @($"{ocenaKolekcji} pkt (#{ranking})")
                             }
