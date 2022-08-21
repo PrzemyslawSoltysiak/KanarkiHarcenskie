@@ -24,7 +24,7 @@ namespace KanarkiHercenskie.Pages.Konkursy
         public Konkurs WybranyKonkurs = null;
         public IList<Wynik> WynikiKonkursu = null;
 
-        public async Task OnGetAsync(int? id)
+        public async Task OnGetAsync(int? id, string? sortuj)
         {
             if (_context.Konkursy != null)
             {
@@ -49,6 +49,39 @@ namespace KanarkiHercenskie.Pages.Konkursy
                             .Include(w => w.PrzyznanoDla)
                             .Where(w => w.PrzyznanoDla.Kolekcja.Konkurs.ID == id)
                             .AsNoTracking().ToListAsync();
+
+                        if (sortuj != null)
+                        {
+                            switch (sortuj)
+                            {
+                                case "CIH":
+                                    WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
+                                        .OrderBy(k => k.SygnumWlasciciela).ToList();
+                                    break;
+                                case "NajwczesniejszePrzesluchanie":
+                                    WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
+                                        .OrderBy(k => k.Przesluchanie.Data).ToList();
+                                    break;
+                                case "NajpozniejszePrzesluchanie":
+                                    WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
+                                        .OrderByDescending(k => k.Przesluchanie.Data).ToList();
+                                    break;
+                                case "NajlepszyWynik":
+                                    WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
+                                        .OrderByDescending(k => _context.Wyniki
+                                            .Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID)
+                                            .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow)))
+                                        .ToList();
+                                    break;
+                                case "NajgorszyWynik":
+                                    WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
+                                        .OrderBy(k => _context.Wyniki
+                                            .Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID)
+                                            .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow)))
+                                        .ToList();
+                                    break;
+                            }
+                        }
                     }
                 }
             }

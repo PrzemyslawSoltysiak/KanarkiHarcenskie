@@ -50,7 +50,7 @@
                 <a asp-page="../Konkursy/Index" class="ms-2">Powrót do Konkursów</a> @("|")
                 <a asp-page="Index">Powrót do Kolekcji</a>
             }
-            @if (Model.PrzekierowanoZListyHodowcow)
+            else if (Model.PrzekierowanoZListyHodowcow)
             {
                 <a asp-page="../Hodowcy/Index" class="ms-2">Powrót do Hodowców</a> @("|")
                 <a asp-page="Index">Powrót do Kolekcji</a> 
