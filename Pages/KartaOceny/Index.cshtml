@@ -57,7 +57,7 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
-@if (Model.BrakDanychHodowcy) {
+@if (Model.BrakDanychHodowcy || Model.NiepoprawnyFormatDanychHodowcy) {
 	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
 		Należy podać dane Hodowcy (<var>imię i nazwisko</var> lub <var>Sygnum</var>, jeśli został wcześniej zarejestrowany).
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -67,6 +67,12 @@
 	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
 		Hodowca o podanym <var>Sygnum</var> jest zarejestrowany w systemie, jednak jego <var>Imię</var> lub <var>Nazwisko</var>
 		nie zgadzają się z danymi wprowadzonymi w formularzu.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+@if (Model.NieZnalezionoHodowcy) {
+	<div class="alert alert-danger alert-dismissible fade show py-4 px-5" role="alert">
+		W systemie nie zarejestrowano Hodowcy o podanym <var>Sygnum</var>.
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
@@ -140,7 +146,7 @@
 			</label>
 			<div class="col">
 				<input asp-for="ImieNazwiskoHodowcy" class="form-control 
-					@(Model.BledneImieNazwisko || Model.BrakDanychHodowcy ? "border-danger alger-danger" : "")" />
+					@(Model.BledneImieNazwisko || Model.NiepoprawnyFormatDanychHodowcy || Model.BrakDanychHodowcy ? "border-danger alger-danger" : "")" />
 			</div>
 		</div>
 
@@ -166,7 +172,7 @@
 							Sygnum hodowcy:
 						</label>
 						<input asp-for="Hodowca.SygnumHodowcy" class="col form-control me-4 
-							@(Model.BrakDanychHodowcy ? "border-danger alger-danger" : "")" />
+							@(Model.BrakDanychHodowcy || Model.NieZnalezionoHodowcy ? "border-danger alger-danger" : "")" />
 					</div>
 					@*<div class="container row mx-auto">
 						<span asp-validation-for="Hodowca.SygnumHodowcy" class="text-danger fw-normal"></span>

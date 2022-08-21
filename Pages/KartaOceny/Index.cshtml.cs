@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -52,9 +53,11 @@ namespace KanarkiHercenskie.Pages.KartaOceny
         public WierszWynikow[] WynikiUjemne { get; set; }
 
 
-        public bool BledneImieNazwisko = false;
         public bool BrakMiejscowosci = false;
         public bool BrakDanychHodowcy = false;
+        public bool NiepoprawnyFormatDanychHodowcy = false;
+        public bool BledneImieNazwisko = false;
+        public bool NieZnalezionoHodowcy = false;
         public bool[] BlednyNumerObraczkiRodowej = new bool[4];
         public bool BlednaDataPrzesluchania = false;
         public bool BlednaGodzinaRozpoczeciaPrzesluchania = false;
@@ -165,9 +168,14 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 return NotFound();
 
             BrakMiejscowosci = Konkurs.Miejscowosc == null ? true : false;
-            BrakDanychHodowcy = ImieNazwiskoHodowcy == null && Hodowca.SygnumHodowcy == null ? true : false;
-
+            BrakDanychHodowcy = ImieNazwiskoHodowcy == null ? true : false;
             if (BrakMiejscowosci || BrakDanychHodowcy)
+            {
+                return PobierzCechyPotemReturnPage();
+            }
+
+            NiepoprawnyFormatDanychHodowcy = !Regex.IsMatch(ImieNazwiskoHodowcy, @"^[A-Z][a-z]+\s[A-Z][a-z]+$");
+            if (NiepoprawnyFormatDanychHodowcy)
             {
                 return PobierzCechyPotemReturnPage();
             }
