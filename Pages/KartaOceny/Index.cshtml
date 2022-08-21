@@ -358,18 +358,12 @@
 						</div>
 					</div>
 				</td>
+			@for (int i = 0; i < 4; ++i)
+			{
 				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
+					<input asp-for="@Model.OcenaKoncowa[i]" readonly type="text" style="width: 6ch;" class="form-control mx-auto my-1 text-center" />
 				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
+			}
 
 				@* OCENA KOLEKCJI *@
 				<td rowspan="3" class="container w-auto align-top p-4 text-start">
@@ -385,24 +379,10 @@
 				</td>
 			</tr>
 			<tr class="align-middle">
-				<td>
+				<td colspan="5">
 					<div class="container row">
-						<div class="col-8 text-start">
-							Ocena eksperta II
-						</div>
+						<input type="number" class="form-control mx-auto" style="width: 6ch; visibility: hidden;" />
 					</div>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
-				</td>
-				<td>
-					<input type="number" class="form-control mx-auto my-2" style="width: 6ch;"/>
 				</td>
 			</tr>
 			<tr class="align-middle">
@@ -416,8 +396,7 @@
 			@for (int i = 0; i < 4; ++i)
 			{
 				<td>
-					<input asp-for="@Model.OcenaKoncowa[i]" readonly type="text" style="width: 6ch;" 
-					       class="form-control mx-auto my-1 text-center" />
+					<input asp-for="@Model.OcenaKoncowa[i]" readonly type="text" style="width: 6ch;" class="form-control mx-auto my-1 text-center" />
 				</td>
 			}
 			</tr>
