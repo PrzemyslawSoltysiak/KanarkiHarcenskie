@@ -92,29 +92,35 @@
                         <td>
                             @if (kolekcja.Przesluchanie != null)
                             {
+                                string termin = "";
+
                                 @if (kolekcja.Przesluchanie.Data != null)
                                 {
                                     var pd = kolekcja.Przesluchanie.Data.Value;
                                     DateOnly data = new DateOnly(pd.Year, pd.Month, pd.Day);
-
-                                    @data
+                                    termin += data.ToString();
 
                                     if (kolekcja.Przesluchanie.GodzinaOd != null)
                                     {
                                         var pgod = kolekcja.Przesluchanie.GodzinaOd.Value;
                                         TimeOnly godzinaOd = new TimeOnly(pgod.Hour, pgod.Minute);
-
-                                        @($", od godz. {godzinaOd}")
+                                        termin += $", od godz. {godzinaOd}";
 
                                         if (kolekcja.Przesluchanie.GodzinaDo != null)
                                         {
                                             var pgdo = kolekcja.Przesluchanie.GodzinaDo.Value;
                                             TimeOnly godzinaDo = new TimeOnly(pgdo.Hour, pgdo.Minute);
-
-                                            @($" do {@godzinaDo}")
+                                            termin += $" do {@godzinaDo}";
                                         }
                                     }
                                 }
+
+                                if (termin == "")
+                                {
+                                    termin = "Ustal termin";
+                                }
+
+                                <a asp-page="../Przesluchania/Edit" asp-route-id="@kolekcja.Przesluchanie.ID">@termin</a>
                             }
                             else
                             {

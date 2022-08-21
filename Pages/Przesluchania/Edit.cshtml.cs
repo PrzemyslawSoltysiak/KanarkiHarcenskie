@@ -36,7 +36,7 @@ namespace KanarkiHercenskie.Pages.Przesluchania
                 return NotFound();
             }
             Przesluchanie = przesluchanie;
-            GenerujListeKolekcji(_context);
+            GenerujListeKolekcji(_context, przesluchanie.ID_Kolekcji);
             return Page();
         }
 
