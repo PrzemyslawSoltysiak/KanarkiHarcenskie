@@ -10,7 +10,7 @@
 <p>
     <a asp-page="Create">Dodaj Konkurs</a>
 </p>
-<table class="table text-center">
+<table class="table table-hover text-center">
     <thead>
         <tr>
             <th>
@@ -43,8 +43,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Ranga)
             </td>
-            <td style="width: 32ch;">
+            <td style="width: 48ch;">
                 @* <a asp-page="./Details" asp-route-id="@item.ID">Szczegóły</a> | *@
+                <a asp-page="" asp-route-id="@item.ID">Podgląd Kolekcji</a> |
                 <a asp-page="../Kolekcje/Create" asp-route-idKonkursu="@item.ID">Zarejestruj Kolekcję</a> | 
                 <a asp-page="./Delete" asp-route-id="@item.ID">Usuń</a>
             </td>
@@ -52,3 +53,76 @@
 }
     </tbody>
 </table>
+
+@if (Model.WybranyKonkurs != null) {
+<h5 class="mt-5 ms-2">Kolekcje zarejestrowane na Konkurs: @Model.WybranyKonkurs.Podsumowanie:</h5>
+    @if (Model.ZgloszoneKolekcje != null)
+    {
+        <table class="table table-hover text-center mt-3">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="4">Numer obrączki rodowej kanarka w Klatce numer:</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Właściciel</th>
+                    <th style="width: 12ch; min-width: 4ch;">1</th>
+                    <th style="width: 12ch; min-width: 4ch;">2</th>
+                    <th style="width: 12ch; min-width: 4ch;">3</th>
+                    <th style="width: 12ch; min-width: 4ch;">4</th>
+                    <th style="width: 36ch;">Przesłuchanie</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kolekcja in Model.ZgloszoneKolekcje)
+                {
+                    <tr>
+                        <td>
+                            @kolekcja.Wlasciciel.Podsumowanie
+                        </td>
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <td>
+                                @(String.Format("{0:D3}", kolekcja.Klatki[i].NrObraczkiRodowej))
+                            </td>
+                        }
+                        <td>
+                            @if (kolekcja.Przesluchanie != null)
+                            {
+                                @if (kolekcja.Przesluchanie.Data != null)
+                                {
+                                    var pd = kolekcja.Przesluchanie.Data.Value;
+                                    DateOnly data = new DateOnly(pd.Year, pd.Month, pd.Day);
+
+                                    @data
+
+                                    if (kolekcja.Przesluchanie.GodzinaOd != null)
+                                    {
+                                        var pgod = kolekcja.Przesluchanie.GodzinaOd.Value;
+                                        TimeOnly godzinaOd = new TimeOnly(pgod.Hour, pgod.Minute);
+
+                                        @($", od godz. {godzinaOd}")
+
+                                        if (kolekcja.Przesluchanie.GodzinaDo != null)
+                                        {
+                                            var pgdo = kolekcja.Przesluchanie.GodzinaDo.Value;
+                                            TimeOnly godzinaDo = new TimeOnly(pgdo.Hour, pgdo.Minute);
+
+                                            @($" do {@godzinaDo}")
+                                        }
+                                    }
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h6 class="ms-2">Na ten Konkurs nie zarejestrowano jeszcze żadnej Kolekcji!</h6>
+    }
+}

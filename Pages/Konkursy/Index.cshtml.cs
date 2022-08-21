@@ -21,11 +21,36 @@ namespace KanarkiHercenskie.Pages.Konkursy
 
         public IList<Konkurs> Konkursy { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public Konkurs WybranyKonkurs = null;
+        public IList<Kolekcja> ZgloszoneKolekcje { get; set; } = null;
+
+        public async Task OnGetAsync(int? id)
         {
             if (_context.Konkursy != null)
             {
                 Konkursy = await _context.Konkursy.AsNoTracking().ToListAsync();
+
+                if (id != null)
+                {
+                    var wybranyKonkurs = _context.Konkursy
+                        .Include(k => k.ZgloszoneKolekcje)
+                            .ThenInclude(k => k.Klatki)
+                        .Include(k => k.ZgloszoneKolekcje)
+                            .ThenInclude(k => k.Wlasciciel)
+                        .Include(k => k.ZgloszoneKolekcje)
+                            .ThenInclude(k => k.Przesluchanie)
+                        .FirstOrDefault(konkurs => konkurs.ID == id);
+
+                    if (wybranyKonkurs != null)
+                    {
+                        WybranyKonkurs = wybranyKonkurs;
+
+                        if (wybranyKonkurs.ZgloszoneKolekcje.Count() > 0)
+                        {
+                            ZgloszoneKolekcje = wybranyKonkurs.ZgloszoneKolekcje.ToList();
+                        }
+                    }
+                }
             }
         }
     }
