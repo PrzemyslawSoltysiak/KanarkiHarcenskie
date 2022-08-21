@@ -329,7 +329,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 else
                 {
                     bledneWyniki = true;
-                    break;
                 }
             }
             for (int i = 0; i < CechyUjemne.Count(); ++i)
@@ -346,7 +345,6 @@ namespace KanarkiHercenskie.Pages.KartaOceny
                 else
                 {
                     bledneWyniki = true;
-                    break;
                 }
             }
 

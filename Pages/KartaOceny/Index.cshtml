@@ -218,11 +218,17 @@
 						<div class="col-8 text-start">
 							@Model.CechyDodatnie[i].Nazwa
 						</div>
-						<div class="col-1 text-end"> do </div>
-						<div class="col-2 text-end mx-0 ">
+						<div class="col-1 text-end @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
+											         Model.WynikiDodatnie[i].BledyWalidacji[2] || Model.WynikiDodatnie[i].BledyWalidacji[3] 
+							? "text-danger fw-bold" : "")"> do </div>
+						<div class="col-2 text-end mx-0 @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
+											              Model.WynikiDodatnie[i].BledyWalidacji[2] || Model.WynikiDodatnie[i].BledyWalidacji[3] 
+							? "text-danger fw-bold" : "")">
 							@Model.CechyDodatnie[i].MaksPunktow
 						</div>
-						<div class="col-1"> pkt </div>
+						<div class="col-1 @(Model.WynikiDodatnie[i].BledyWalidacji[0] || Model.WynikiDodatnie[i].BledyWalidacji[1] ||
+											Model.WynikiDodatnie[i].BledyWalidacji[2] || Model.WynikiDodatnie[i].BledyWalidacji[3] 
+							? "text-danger fw-bold" : "")"> pkt </div>
 					</div>
 				</td>
 				<td>
