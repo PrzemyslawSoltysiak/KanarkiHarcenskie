@@ -67,13 +67,25 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <th>Właściciel</th>
+                    <th>
+                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="CIH">
+                            Właściciel
+                        </a>
+                    </th>
                     <th style="width: 12ch; min-width: 4ch;">1</th>
                     <th style="width: 12ch; min-width: 4ch;">2</th>
                     <th style="width: 12ch; min-width: 4ch;">3</th>
                     <th style="width: 12ch; min-width: 4ch;">4</th>
-                    <th style="width: 36ch;">Przesłuchanie</th>
-                    <th style="width: 20ch;">Ocena Kolekcji</th>
+                    <th style="width: 36ch;">
+                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="NajwczesniejszePrzesluchanie">
+                            Przesłuchanie
+                        </a>
+                    </th>
+                    <th style="width: 20ch;">
+                        <a asp-page="" asp-route-id="@Model.WybranyKonkurs.ID" asp-route-sortuj="NajlepszyWynik">
+                            Ocena Kolekcji
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -134,7 +146,12 @@
                                     .Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID)
                                     .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow));
 
-                                @($"{ocenaKolekcji} pkt")
+                                int ranking = Model.WybranyKonkurs.ZgloszoneKolekcje.Count() - Model.WybranyKonkurs.ZgloszoneKolekcje
+                                    .Where(k => Model.WynikiKonkursu.Where(w => w.PrzyznanoDla.ID_Kolekcji == k.ID)
+                                                    .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow)) < ocenaKolekcji)
+                                    .Count();
+
+                                @($"{ocenaKolekcji} pkt (#{ranking})")
                             }
                             else
                             {
