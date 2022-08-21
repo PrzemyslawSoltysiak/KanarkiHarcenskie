@@ -22,9 +22,7 @@ namespace KanarkiHercenskie.Pages.Konkursy
         public IList<Konkurs> Konkursy { get;set; } = default!;
 
         public Konkurs WybranyKonkurs = null;
-        public IList<Kolekcja> ZgloszoneKolekcje { get; set; } = null;
-
-        public IList<Wynik> WynikiKonkursu { get; set; } = null;
+        public IList<Wynik> WynikiKonkursu = null;
 
         public async Task OnGetAsync(int? id)
         {
@@ -43,20 +41,14 @@ namespace KanarkiHercenskie.Pages.Konkursy
                             .ThenInclude(k => k.Przesluchanie)
                         .FirstOrDefault(konkurs => konkurs.ID == id);
 
-                    WynikiKonkursu = await _context.Wyniki
-                        .Include(w => w.PrzyznanoZa)
-                        .Include(w => w.PrzyznanoDla)
-                        .Where(w => w.PrzyznanoDla.Kolekcja.Konkurs.ID == id)
-                        .AsNoTracking().ToListAsync();
-
                     if (wybranyKonkurs != null)
                     {
                         WybranyKonkurs = wybranyKonkurs;
-
-                        if (wybranyKonkurs.ZgloszoneKolekcje.Count() > 0)
-                        {
-                            ZgloszoneKolekcje = wybranyKonkurs.ZgloszoneKolekcje.ToList();
-                        }
+                        WynikiKonkursu = await _context.Wyniki
+                            .Include(w => w.PrzyznanoZa)
+                            .Include(w => w.PrzyznanoDla)
+                            .Where(w => w.PrzyznanoDla.Kolekcja.Konkurs.ID == id)
+                            .AsNoTracking().ToListAsync();
                     }
                 }
             }

@@ -22,7 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Hodowcy[0].Nazwisko)
             </th>
-            <th style="width: 32ch;"></th>
+            <th style="width: 48ch;"></th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +38,7 @@
                 @Html.DisplayFor(modelItem => item.Nazwisko)
             </td>
             <td>
+                <a asp-page="" asp-route-cih="@item.SygnumHodowcy">Podgląd Kolekcji</a> |
                 <a asp-page="../Kolekcje/Create" asp-route-sygnumWlasciciela="@item.SygnumHodowcy">Zarejestruj Kolekcję</a> |
                 <a asp-page="./Edit" asp-route-id="@item.SygnumHodowcy">Edytuj</a> |
                 @* <a asp-page="./Details" asp-route-id="@item.SygnumHodowcy">Details</a> | *@
@@ -47,3 +48,102 @@
 }
     </tbody>
 </table>
+
+@if (Model.WybranyHodowca != null) {
+<h5 class="mt-5 ms-2">Kolekcje zarejestrowane przez Hodowcę: @Model.WybranyHodowca.Podsumowanie</h5>
+    @if (Model.WybranyHodowca.ZgloszoneKolekcje.Count() > 0)
+    {
+        <table class="table table-hover text-center mt-3">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="4">Numer obrączki rodowej kanarka w Klatce numer:</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Konkurs</th>
+                    <th style="width: 12ch; min-width: 4ch;">1</th>
+                    <th style="width: 12ch; min-width: 4ch;">2</th>
+                    <th style="width: 12ch; min-width: 4ch;">3</th>
+                    <th style="width: 12ch; min-width: 4ch;">4</th>
+                    <th style="width: 36ch;">Przesłuchanie</th>
+                    <th style="width: 20ch;">Ocena Kolekcji</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kolekcja in Model.WybranyHodowca.ZgloszoneKolekcje)
+                {
+                    <tr>
+                        <td>
+                            @kolekcja.Konkurs.Podsumowanie
+                        </td>
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <td>
+                                @(String.Format("{0:D3}", kolekcja.Klatki[i].NrObraczkiRodowej))
+                            </td>
+                        }
+                        <td>
+                            @if (kolekcja.Przesluchanie != null)
+                            {
+                                string termin = "";
+
+                                @if (kolekcja.Przesluchanie.Data != null)
+                                {
+                                    var pd = kolekcja.Przesluchanie.Data.Value;
+                                    DateOnly data = new DateOnly(pd.Year, pd.Month, pd.Day);
+                                    termin += data.ToString();
+
+                                    if (kolekcja.Przesluchanie.GodzinaOd != null)
+                                    {
+                                        var pgod = kolekcja.Przesluchanie.GodzinaOd.Value;
+                                        TimeOnly godzinaOd = new TimeOnly(pgod.Hour, pgod.Minute);
+                                        termin += $", od godz. {godzinaOd}";
+
+                                        if (kolekcja.Przesluchanie.GodzinaDo != null)
+                                        {
+                                            var pgdo = kolekcja.Przesluchanie.GodzinaDo.Value;
+                                            TimeOnly godzinaDo = new TimeOnly(pgdo.Hour, pgdo.Minute);
+                                            termin += $" do {@godzinaDo}";
+                                        }
+                                    }
+                                }
+
+                                if (termin == "")
+                                {
+                                    termin = "Ustal termin";
+                                }
+
+                                <a asp-page="../Przesluchania/Edit" asp-route-id="@kolekcja.Przesluchanie.ID">@termin</a>
+                            }
+                            else
+                            {
+                                <a asp-page="../Przesluchania/Create" asp-route-idKolekcji="@kolekcja.ID">Dodaj termin</a>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.WynikiHodowcy.Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID).Any())
+                            {
+                                int ocenaKolekcji = Model.WynikiHodowcy
+                                    .Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID)
+                                    .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow));
+
+                                @($"{ocenaKolekcji} pkt")
+                            }
+                            else
+                            {
+                                @("-")
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h6 class="ms-2">Ten Hodowca nie zarejestrował jeszcze żadnej Kolekcji.</h6>
+    }
+}

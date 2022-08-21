@@ -55,8 +55,8 @@
 </table>
 
 @if (Model.WybranyKonkurs != null) {
-<h5 class="mt-5 ms-2">Kolekcje zarejestrowane na Konkurs: @Model.WybranyKonkurs.Podsumowanie:</h5>
-    @if (Model.ZgloszoneKolekcje != null)
+<h5 class="mt-5 ms-2">Kolekcje zarejestrowane na Konkurs: @Model.WybranyKonkurs.Podsumowanie</h5>
+    @if (Model.WybranyKonkurs.ZgloszoneKolekcje.Count() > 0)
     {
         <table class="table table-hover text-center mt-3">
             <thead>
@@ -77,7 +77,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var kolekcja in Model.ZgloszoneKolekcje)
+                @foreach (var kolekcja in Model.WybranyKonkurs.ZgloszoneKolekcje)
                 {
                     <tr>
                         <td>
@@ -149,6 +149,6 @@
     }
     else
     {
-        <h6 class="ms-2">Na ten Konkurs nie zarejestrowano jeszcze żadnej Kolekcji!</h6>
+        <h6 class="ms-2">Na ten Konkurs nie zarejestrowano jeszcze żadnej Kolekcji.</h6>
     }
 }
