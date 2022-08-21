@@ -64,6 +64,7 @@
                     <th></th>
                     <th colspan="4">Numer obrączki rodowej kanarka w Klatce numer:</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th>Właściciel</th>
@@ -72,6 +73,7 @@
                     <th style="width: 12ch; min-width: 4ch;">3</th>
                     <th style="width: 12ch; min-width: 4ch;">4</th>
                     <th style="width: 36ch;">Przesłuchanie</th>
+                    <th style="width: 20ch;">Ocena Kolekcji</th>
                 </tr>
             </thead>
             <tbody>
@@ -113,6 +115,20 @@
                                         }
                                     }
                                 }
+                            }
+                        </td>
+                        <td>
+                            @if (Model.WynikiKonkursu.Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID).Any())
+                            {
+                                int ocenaKolekcji = Model.WynikiKonkursu
+                                    .Where(w => w.PrzyznanoDla.ID_Kolekcji == kolekcja.ID)
+                                    .Sum(w => w.PrzyznanePunkty * (int)(w.PrzyznanoZa.WagaPunktow));
+
+                                @($"{ocenaKolekcji} pkt")
+                            }
+                            else
+                            {
+                                @("-")
                             }
                         </td>
                     </tr>
