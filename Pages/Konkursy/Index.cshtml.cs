@@ -71,12 +71,14 @@ namespace KanarkiHercenskie.Pages.Konkursy
                                 case "NajwczesniejszePrzesluchanie":
                                     SortujWedlugPrzesluchan = "NajpozniejszePrzesluchanie";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
-                                        .OrderBy(k => k.Przesluchanie.Data).ToList();
+                                        .OrderBy(k => k.Przesluchanie.Data)
+                                        .ThenBy(k => k.Przesluchanie.GodzinaOd).ToList();
                                     break;
                                 case "NajpozniejszePrzesluchanie":
                                     SortujWedlugPrzesluchan = "NajwczesniejszePrzesluchanie";
                                     WybranyKonkurs.ZgloszoneKolekcje = WybranyKonkurs.ZgloszoneKolekcje
-                                        .OrderByDescending(k => k.Przesluchanie.Data).ToList();
+                                        .OrderByDescending(k => k.Przesluchanie.Data)
+                                        .ThenByDescending(k => k.Przesluchanie.GodzinaOd).ToList();
                                     break;
                                 case "NajlepszyWynik":
                                     SortujWedlugWynikow = "NajgorszyWynik";
