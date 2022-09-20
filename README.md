@@ -1,6 +1,6 @@
-# Kanarki Herceńskie
+# Kanarki Harceńskie
 
-Serwis **Kanarki Herceńskie** pozwala na przeprowadzanie Konkursów kanarków herceńskich. Do każdego *Konkursu* *Hodowca* może zgłosić jedną *Kolekcję*, składającą się z czterech *Klatek*, w których znajdują się kanarki. Następnie *Kolekcja* jest oceniana przy pomocy **Karty Oceny PFO** w trakcie *Przesłuchania*, podczas którego to każdej z *Klatek* mogą zostać wystawione indywidualne *Wyniki* za zarejestrowane uprzednio w serwisie *Cechy Śpiewu COM*. Łączne oceny *Klatek* oraz *Kolekcji* można następnie sprawdzić w sekcji **Wyniki**.
+Serwis **Kanarki Harceńskie** pozwala na przeprowadzanie Konkursów kanarków harceńskich. Do każdego *Konkursu* *Hodowca* może zgłosić jedną *Kolekcję*, składającą się z czterech *Klatek*, w których znajdują się kanarki. Następnie *Kolekcja* jest oceniana przy pomocy **Karty Oceny PFO** w trakcie *Przesłuchania*, podczas którego to każdej z *Klatek* mogą zostać wystawione indywidualne *Wyniki* za zarejestrowane uprzednio w serwisie *Cechy Śpiewu COM*. Łączne oceny *Klatek* oraz *Kolekcji* można następnie sprawdzić w sekcji **Wyniki**.
 
 <br/>
 
