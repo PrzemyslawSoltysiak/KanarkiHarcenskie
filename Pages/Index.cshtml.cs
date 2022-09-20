@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using KanarkiHercenskie.Data;
-using KanarkiHercenskie.Models;
+using KanarkiHarcenskie.Data;
+using KanarkiHarcenskie.Models;
 
-namespace KanarkiHercenskie.Pages
+namespace KanarkiHarcenskie.Pages
 {
     public class IndexModel : PageModel
     {

@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using KanarkiHercenskie.Data;
-using KanarkiHercenskie.Models;
+using KanarkiHarcenskie.Data;
+using KanarkiHarcenskie.Models;
 
-namespace KanarkiHercenskie.Pages.Wyniki
+namespace KanarkiHarcenskie.Pages.Wyniki
 {
     public class EditModel : PageModel
     {
-        private readonly KanarkiHercenskie.Data.ApplicationDbContext _context;
+        private readonly KanarkiHarcenskie.Data.ApplicationDbContext _context;
 
-        public EditModel(KanarkiHercenskie.Data.ApplicationDbContext context)
+        public EditModel(KanarkiHarcenskie.Data.ApplicationDbContext context)
         {
             _context = context;
         }

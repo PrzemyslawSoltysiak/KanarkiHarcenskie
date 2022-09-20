@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using KanarkiHercenskie.Data;
-using KanarkiHercenskie.Models;
+using KanarkiHarcenskie.Data;
+using KanarkiHarcenskie.Models;
 
-namespace KanarkiHercenskie.Pages.Hodowcy
+namespace KanarkiHarcenskie.Pages.Hodowcy
 {
     public class EditModel : PageModel
     {

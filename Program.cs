@@ -1,4 +1,4 @@
-using KanarkiHercenskie.Data;
+using KanarkiHarcenskie.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

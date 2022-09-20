@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using KanarkiHercenskie.Data;
-using KanarkiHercenskie.Models;
+using KanarkiHarcenskie.Data;
+using KanarkiHarcenskie.Models;
 
-namespace KanarkiHercenskie.Pages.Wyniki
+namespace KanarkiHarcenskie.Pages.Wyniki
 {
     public class DeleteModel : PageModel
     {
-        private readonly KanarkiHercenskie.Data.ApplicationDbContext _context;
+        private readonly KanarkiHarcenskie.Data.ApplicationDbContext _context;
 
-        public DeleteModel(KanarkiHercenskie.Data.ApplicationDbContext context)
+        public DeleteModel(KanarkiHarcenskie.Data.ApplicationDbContext context)
         {
             _context = context;
         }

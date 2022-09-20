@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace KanarkiHercenskie.Models
+namespace KanarkiHarcenskie.Models
 {
     public enum WagaPunktow
     {

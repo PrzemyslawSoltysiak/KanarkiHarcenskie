@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using KanarkiHercenskie.Models;
+using KanarkiHarcenskie.Models;
 
-namespace KanarkiHercenskie.Data
+namespace KanarkiHarcenskie.Data
 {
     public static class DbInitializer
     {
